@@ -1,0 +1,11 @@
+.like_visible {
+	display: inline-block;
+	vertical-align: middle;
+	color: #000;
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 22px;
+	padding-top: 86.4%;
+	transition: opacity .3s ease-in-out;
+	background-image: url(../../../images/like/like.svg);
+}

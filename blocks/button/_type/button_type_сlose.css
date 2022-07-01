@@ -1,0 +1,13 @@
+.button_type_сlose {
+  border: 0;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: calc(100% + 8px);
+}
+
+@media screen and (max-width: 767px) {
+  .button_type_сlose {
+    bottom: calc(100% + 16px);
+    left: calc(100% - 20px);
+  }
+}

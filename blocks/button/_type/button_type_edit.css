@@ -1,0 +1,14 @@
+.button_type_edit {
+  margin-top: 6px;
+  border-width: 1px;
+  width: 24px;
+  height: 24px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 767px) {
+  .button_type_edit {
+    width: 18px;
+    height: 18px;
+  }
+}

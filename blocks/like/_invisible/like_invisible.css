@@ -1,0 +1,17 @@
+.like_invisible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  transition: opacity 0.3s ease-in-out;
+}
+
+.like_invisible:hover+.like_visible {
+  opacity: 0.5;
+}
+
+.like_invisible:checked+.like_visible {
+  opacity: 1;
+  background-image: url(../../../images/like/like_active.svg);
+}
