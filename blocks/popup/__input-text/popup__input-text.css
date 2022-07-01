@@ -6,16 +6,18 @@
   outline: none;
   font-family: inherit;
   border: 0;
-  /* border-bottom: 1px solid #000000; */
-  /* opacity: 0.2; */
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
+
 .popup__input-text:focus {
   outline: none;
 }
+
 .popup__input-text::placeholder {
   font-family: "Inter", "Arial", sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   color: #000000;
+  margin-bottom: 13px;
 }

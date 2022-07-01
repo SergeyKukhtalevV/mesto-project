@@ -1,18 +1,18 @@
 .content {
-	align-items: center;
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin: 0;
-	padding: 40px 0 67 0px;
-	row-gap: 51px;
-	width: 100%;
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  padding: 40px 0 67px;
+  row-gap: 51px;
+  width: 100%;
 }
 
 @media screen and (max-width: 767px) {
-	.content {
-		padding: 42px 0 48px 0;
-		row-gap: 36px;
-	}
+  .content {
+    padding: 42px 0 48px;
+    row-gap: 36px;
+  }
 }
