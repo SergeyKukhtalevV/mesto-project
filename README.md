@@ -21,4 +21,4 @@
 8. Проект прошел проверку в [html-валидаторе:](https://validator.w3.org/nu/).
 9. Создано всплывающее окно с поля ввода.
 
-Ссылка на проект: [https://sergeykukhtalevv.github.io/russian-travel/index.html].
+Ссылка на проект: [https://sergeykukhtalevv.github.io/mesto-project/index.html].
