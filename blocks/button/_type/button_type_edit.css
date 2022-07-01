@@ -1,9 +1,13 @@
 .button_type_edit {
-  margin-top: 6px;
+  background-image: url(../../../images/buttons/button_edit.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 50%;
   border-width: 1px;
-  width: 24px;
-  height: 24px;
   box-sizing: border-box;
+  height: 24px;
+  margin-top: 6px;
+  width: 24px;
 }
 
 @media screen and (max-width: 767px) {

@@ -1,9 +1,0 @@
-.button__image_type_edit {
-	width: 10px;
-}
-
-@media screen and (max-width: 767px) {
-	.button__image_type_edit {
-		width: 7.5px;
-	}
-}

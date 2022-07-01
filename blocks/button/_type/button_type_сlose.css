@@ -1,12 +1,21 @@
 .button_type_сlose {
+  background-image: url(../../../images/buttons/button_close.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-color: rgba(0, 0, 0, 0);
   border: 0;
   position: absolute;
   bottom: calc(100% + 8px);
   left: calc(100% + 8px);
+  width: 32px;
+  height: 32px;
 }
 
 @media screen and (max-width: 767px) {
   .button_type_сlose {
+    width: 20px;
+    height: 20px;
     bottom: calc(100% + 16px);
     left: calc(100% - 20px);
   }
