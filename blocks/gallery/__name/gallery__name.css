@@ -3,9 +3,9 @@
   background-color: #fff;
   border-radius: 0 0 10px 10px;
   display: flex;
-  height: 79px;
+  padding: 25px 0;
   justify-content: space-between;
   max-width: 282px;
-  position: relative;
+  margin: 0;
   width: 100%;
 }

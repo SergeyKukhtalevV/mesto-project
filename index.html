@@ -118,40 +118,40 @@
           </li>
         </ul>
       </section>
-      <div class="popup">
-        <button
-          class="button button_type_сlose"
-          type="button"
-          aria-label="Закрыть всплывающее окно"
-        ></button>
-        <form class="popup__container" action="url" name="edit-profile">
-          <fieldset class="popup__contact-info">
-            <h2 class="popup__heading">Редактировать профиль</h2>
-            <input
-              required
-              name="name"
-              type="text"
-              class="popup__input-text"
-              id="name"
-              placeholder="Жак-Ив Кусто"
-            />
-            <input
-              required
-              name="about-yourself"
-              type="text"
-              class="popup__input-text"
-              id="about-yourself"
-              placeholder="Исследователь океана"
-            />
-            <button class="button button_type_submit" type="submit">
-              Сохранить
-            </button>
-          </fieldset>
-        </form>
-      </div>
     </main>
     <footer class="footer">
       <p class="footer__copy">&copy; 2022 Mesto Russia</p>
     </footer>
+    <div class="popup">
+      <button
+        class="button button_type_сlose"
+        type="button"
+        aria-label="Закрыть всплывающее окно"
+      ></button>
+      <form class="popup__container" action="url" name="edit-profile">
+        <fieldset class="popup__contact-info">
+          <h2 class="popup__heading">Редактировать профиль</h2>
+          <input
+            required
+            name="name"
+            type="text"
+            class="popup__input-text"
+            id="name"
+            placeholder="Имя пользователя"
+          />
+          <input
+            required
+            name="about-yourself"
+            type="text"
+            class="popup__input-text"
+            id="about-yourself"
+            placeholder="Род деятельности"
+          />
+          <button class="button button_type_submit" type="submit">
+            Сохранить
+          </button>
+        </fieldset>
+      </form>
+    </div>
   </body>
 </html>
