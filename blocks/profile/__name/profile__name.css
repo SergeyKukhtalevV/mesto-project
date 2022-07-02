@@ -5,6 +5,9 @@
   margin: 0;
   max-width: 336px;
   padding: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   width: 100%;
 }
 
@@ -12,5 +15,6 @@
   .profile__name {
     font-size: 27px;
     line-height: 33px;
+    text-align: center;
   }
 }
