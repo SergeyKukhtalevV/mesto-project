@@ -1,15 +1,16 @@
 .button {
-  padding: 0;
-  margin: 0;
+  align-items: center;
   background-color: #000;
   border-color: #fff;
   border-style: solid;
   display: grid;
   justify-content: center;
-  align-items: center;
+  margin: 0;
+  padding: 0;
   transition: opacity 0.3s ease-in-out;
 }
+
 .button:hover {
-  opacity: 0.6;
   cursor: pointer;
+  opacity: 0.6;
 }

@@ -1,14 +1,15 @@
 .profile__info {
+  align-items: center;
+  color: #fff;
   display: grid;
   gap: 16px 18px;
   grid-template-columns: max-content 1fr;
-  align-items: center;
   width: 100%;
-  color: #fff;
 }
+
 @media screen and (max-width: 767px) {
   .profile__info {
-    max-width: 282px;
     gap: 14px 10px;
+    max-width: 282px;
   }
 }

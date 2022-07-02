@@ -1,7 +1,7 @@
 .gallery {
-	max-width: 880px;
-	width: 100%;
-	display: grid;
-	justify-content: center;
-	align-items: center;
+  align-items: center;
+  display: grid;
+  justify-content: center;
+  max-width: 880px;
+  width: 100%;
 }

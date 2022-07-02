@@ -1,22 +1,22 @@
 .button_type_сlose {
+  background-color: rgba(0, 0, 0, 0);
   background-image: url(../../../images/buttons/button_close.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;
-  background-color: rgba(0, 0, 0, 0);
   border: 0;
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: calc(100% + 8px);
-  width: 32px;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
   height: 32px;
+  width: 32px;
 }
 
 @media screen and (max-width: 767px) {
   .button_type_сlose {
-    width: 20px;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
     height: 20px;
-    bottom: calc(100% + 16px);
-    left: calc(100% - 20px);
+    justify-self: end;
+    width: 20px;
   }
 }

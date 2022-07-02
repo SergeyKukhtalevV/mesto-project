@@ -1,8 +1,9 @@
 .popup__contact-info {
-  padding: 0;
-  margin: 34px 36px 37px;
   border: none;
+  margin: 34px 36px 37px;
+  padding: 0;
 }
+
 @media screen and (max-width: 767px) {
   .popup__contact-info {
     margin: 25px 22px;
