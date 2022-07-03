@@ -4,18 +4,18 @@
   background-repeat: no-repeat;
   background-size: 100%;
   border: 0;
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
   height: 32px;
   width: 32px;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: calc(100% + 8px);
 }
 
 @media screen and (max-width: 767px) {
   .button_type_сlose {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
     height: 20px;
-    justify-self: end;
     width: 20px;
+    bottom: calc(100% + 16px);
+    left: calc(100% - 20px);
   }
 }
