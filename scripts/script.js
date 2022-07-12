@@ -1,23 +1,30 @@
 //Объявляем переменные и константы
 let content = document.querySelector('.content');
 const editButton = content.querySelector('.button_type_edit');
-let popup = document.querySelector('.popup');
-let popup__container = popup.querySelector('.popup__container')
-
-const formElement = popup.querySelector('.popup__form');
-const closeButton = popup__container.querySelector('.button_type_сlose');
-const submitButton = popup__container.querySelector('.button_type_submit');
-
+const addButton = content.querySelector('.button_type_add');
 let profileName = content.querySelector('.profile__name');
 let profileAbout = content.querySelector('.profile__about');
+let popup = document.querySelector('.popup');
+let popupContainer = popup.querySelectorAll('.popup__container');
+//console.dir(popupContainer);
 
-const popupName = popup.querySelector('#name');
-const popupAboutYourself = popup.querySelector('#about-yourself');
+console.dir(popupContainer[0]);
+
+
+// const formElement = popup.querySelectorAll('.popup__form');
+// const closeButton = popupContainer.querySelectorAll('.button_type_сlose');
+// const submitButton = popupContainer.querySelectorAll('.button_type_submit');
+
+
+
+// const popupName = popup.querySelector('#name');
+// const popupAboutYourself = popup.querySelector('#about-yourself');
 //console.log(profileAbout.textContent);
 
 //Обработка события click при нажитии на кпонку редактировать
-function popupOpened() {
+function popupOpened(popupContainerType) {
   popup.classList.add('popup_opened');
+  popupContainerType.classList.add('popup__container_opened');
   popupName.value = profileName.textContent;
   popupAboutYourself.value = profileAbout.textContent;
 }
@@ -73,3 +80,4 @@ for (let i = 0; i < initialCards.length; i++) {
           </div>
         </li>`);
 }
+

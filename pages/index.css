@@ -33,6 +33,9 @@
 @import url(../blocks/button/_type/button_type_submit.css);
 @import url(../blocks/button/_type/button_type_сlose.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__container/_type/popup__container_type_user-info.css);
+@import url(../blocks/popup/__container/_type/popup__container_type_card-add.css);
+@import url(../blocks/popup/__container/_opened/popup__container_opened.css);
 /* footer */
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copy/footer__copy.css);
