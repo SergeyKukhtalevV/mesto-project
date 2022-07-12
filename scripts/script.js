@@ -4,44 +4,52 @@ const editButton = content.querySelector('.button_type_edit');
 const addButton = content.querySelector('.button_type_add');
 let profileName = content.querySelector('.profile__name');
 let profileAbout = content.querySelector('.profile__about');
+
 let popup = document.querySelector('.popup');
 let popupContainer = popup.querySelectorAll('.popup__container');
-//console.dir(popupContainer);
+let profilePopup = document.querySelector('.popup__container_type_user-info');
+let cardPopup = document.querySelector('.popup__container_type_card-add');
+console.log(profilePopup);
 
-console.dir(popupContainer[0]);
+const profilePopupCloseButton = profilePopup.querySelector('.button_type_сlose');
+console.dir(profilePopupCloseButton);
+const CardPopupCloseButton = cardPopup.querySelector('.button_type_сlose');
+console.dir(CardPopupCloseButton);
 
+const profilePopupSubmitButton = profilePopup.querySelector('.button_type_submit');
+const CardPopupSubmitButton = cardPopup.querySelector('.button_type_submit');
+const profilePopupForm = profilePopup.querySelector('.popup__form');
+const cardPopupForm = cardPopup.querySelector('.popup__form');
 
-// const formElement = popup.querySelectorAll('.popup__form');
-// const closeButton = popupContainer.querySelectorAll('.button_type_сlose');
-// const submitButton = popupContainer.querySelectorAll('.button_type_submit');
-
-
-
-// const popupName = popup.querySelector('#name');
-// const popupAboutYourself = popup.querySelector('#about-yourself');
-//console.log(profileAbout.textContent);
+const profilePopupName = profilePopup.querySelector('#name');
+const profilePopupAbout = profilePopup.querySelector('#about-yourself');
+// console.log(profilePopupName.textContent);
+// console.log(profilePopupAbout.textContent);
 
 //Обработка события click при нажитии на кпонку редактировать
-function popupOpened(popupContainerType) {
+function profilePopupOpened() {
   popup.classList.add('popup_opened');
-  popupContainerType.classList.add('popup__container_opened');
-  popupName.value = profileName.textContent;
-  popupAboutYourself.value = profileAbout.textContent;
+  profilePopup.classList.add('popup__container_opened');
+
+  profilePopupName.value = profileName.textContent;
+  profilePopupAbout.value = profileAbout.textContent;
 }
-editButton.addEventListener('click', popupOpened);
+editButton.addEventListener('click', profilePopupOpened);
 //Обработка события click при нажитии на кпонку закрыть
-closeButton.addEventListener('click', function () {
+profilePopupCloseButton.addEventListener('click', function () {
   popup.classList.remove('popup_opened');
+  profilePopup.classList.remove('popup__container_opened');
 });
 
 ///////////////////////////////////////////////
-function formSubmitHandler(evt) {
+function profileFormSubmitHandler(evt) {
   evt.preventDefault();
-  profileName.textContent = popupName.value;
-  profileAbout.textContent = popupAboutYourself.value;
+  profileName.textContent = profilePopupName.value;
+  profileAbout.textContent = profilePopupAbout.value;
   popup.classList.remove('popup_opened');
+  profilePopup.classList.remove('popup__container_opened');
 }
-formElement.addEventListener('submit', formSubmitHandler);
+profilePopupForm.addEventListener('submit', profileFormSubmitHandler);
 ////////////////////////////////////////////////
 const initialCards = [
   {
