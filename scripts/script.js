@@ -112,3 +112,9 @@ function cardFormSubmitHandler(evt) {
   cardPopup.classList.remove('popup__container_opened');
 }
 cardPopupForm.addEventListener('submit', cardFormSubmitHandler);
+////////////////////////////////////////////////////////////////
+let likeButtons = content.querySelectorAll('.button_type_like');
+console.dir(likeButtons);
+likeButtons.addEventListener('click', function () {
+  console.log('LIKE!');
+});
