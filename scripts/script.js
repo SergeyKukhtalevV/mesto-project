@@ -23,6 +23,9 @@ const cardPopupForm = cardPopup.querySelector('.popup__form');
 
 const profilePopupName = profilePopup.querySelector('#name');
 const profilePopupAbout = profilePopup.querySelector('#about-yourself');
+const cardPopupName = cardPopup.querySelector('#name-card');
+const cardPopupLink = cardPopup.querySelector('#link-card');
+
 // console.log(profilePopupName.textContent);
 // console.log(profilePopupAbout.textContent);
 
@@ -94,4 +97,18 @@ for (let i = 0; i < initialCards.length; i++) {
           </div>
         </li>`);
 }
-
+///////////////////////////////////////////////
+function cardFormSubmitHandler(evt) {
+  evt.preventDefault();
+  galleryList.insertAdjacentHTML('afterbegin', `
+  <li class="gallery__item">
+          <img src=${cardPopupLink.value} alt=${cardPopupName.value} class="gallery__photo" />
+          <div class="gallery__name">
+            <h2 class="gallery__title">${cardPopupName.value}</h2>
+            <button class="button button_type_like" type="button"></button>
+          </div>
+        </li>`);
+  popup.classList.remove('popup_opened');
+  cardPopup.classList.remove('popup__container_opened');
+}
+cardPopupForm.addEventListener('submit', cardFormSubmitHandler);
