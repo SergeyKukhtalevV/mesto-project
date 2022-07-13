@@ -13,8 +13,8 @@ console.log(profilePopup);
 
 const profilePopupCloseButton = profilePopup.querySelector('.button_type_сlose');
 console.dir(profilePopupCloseButton);
-const CardPopupCloseButton = cardPopup.querySelector('.button_type_сlose');
-console.dir(CardPopupCloseButton);
+const cardPopupCloseButton = cardPopup.querySelector('.button_type_сlose');
+console.dir(cardPopupCloseButton);
 
 const profilePopupSubmitButton = profilePopup.querySelector('.button_type_submit');
 const CardPopupSubmitButton = cardPopup.querySelector('.button_type_submit');
@@ -26,20 +26,26 @@ const profilePopupAbout = profilePopup.querySelector('#about-yourself');
 // console.log(profilePopupName.textContent);
 // console.log(profilePopupAbout.textContent);
 
-//Обработка события click при нажитии на кпонку редактировать
+//Обработка события click при нажитии на кпонку редактировать и добавить
 function profilePopupOpened() {
   popup.classList.add('popup_opened');
   profilePopup.classList.add('popup__container_opened');
-
   profilePopupName.value = profileName.textContent;
   profilePopupAbout.value = profileAbout.textContent;
 }
-editButton.addEventListener('click', profilePopupOpened);
-//Обработка события click при нажитии на кпонку закрыть
-profilePopupCloseButton.addEventListener('click', function () {
+function cardPopupOpened() {
+  popup.classList.add('popup_opened');
+  cardPopup.classList.add('popup__container_opened');
+}
+function popupClose(popupContainerType) {
   popup.classList.remove('popup_opened');
-  profilePopup.classList.remove('popup__container_opened');
-});
+  popupContainerType.classList.remove('popup__container_opened');
+}
+editButton.addEventListener('click', profilePopupOpened);
+addButton.addEventListener('click', cardPopupOpened);
+//Обработка события click при нажитии на кпонку закрыть
+profilePopupCloseButton.addEventListener('click', () => popupClose(profilePopup));
+cardPopupCloseButton.addEventListener('click', () => popupClose(cardPopup));
 
 ///////////////////////////////////////////////
 function profileFormSubmitHandler(evt) {
