@@ -92,13 +92,16 @@ function addPhoto(link, name) {
   link = link.trim();
   name = name.trim().replace(/[^a-zA-ZА-ЯЁа-яё0-9\s]/gi, '');
 
-  let itemTemplate = document.querySelector('#item-template').content;
-  let itemElement = itemTemplate.querySelector('.gallery__item').cloneNode(true);
+  const itemTemplate = document.querySelector('#item-template').content;
+  const itemElement = itemTemplate.querySelector('.gallery__item').cloneNode(true);
 
   itemElement.querySelector('.gallery__photo').src = link;
   itemElement.querySelector('.gallery__photo').alt = name;
 
   itemElement.querySelector('.gallery__title').textContent = name;
+  itemElement.querySelector('.button_type_like').addEventListener('click', function (event) {
+    event.target.classList.toggle('button_type_like-active');
+  });
   galleryList.prepend(itemElement);
 
 }
@@ -118,8 +121,8 @@ function cardFormSubmitHandler(evt) {
 }
 cardPopupForm.addEventListener('submit', cardFormSubmitHandler);
 ////////////////////////////////////////////////////////////////
-const likeButtons = content.querySelectorAll('.button_type_like');
-console.dir(likeButtons);
+// const likeButtons = content.querySelectorAll('.button_type_like');
+// console.dir(likeButtons);
 // likeButtons.addEventListener('click', function () {
 // 	console.log('LIKE!');
 // });
