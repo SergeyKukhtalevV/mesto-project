@@ -30,7 +30,15 @@
     </section>
     <section class="gallery" aria-label="Карточки интересных мест с фотографиями и кнопкой нравиться">
       <ul class="gallery__list">
-
+        <template id="item-template">
+          <li class="gallery__item">
+            <img class="gallery__photo" />
+            <div class="gallery__name">
+              <h2 class="gallery__title"></h2>
+              <button class="button button_type_like" type="button"></button>
+            </div>
+          </li>
+        </template>
       </ul>
     </section>
   </main>

@@ -31,18 +31,18 @@ const cardPopupLink = cardPopup.querySelector('#link-card');
 
 //Обработка события click при нажитии на кпонку редактировать и добавить
 function profilePopupOpened() {
-	popup.classList.add('popup_opened');
-	profilePopup.classList.add('popup__container_opened');
-	profilePopupName.value = profileName.textContent;
-	profilePopupAbout.value = profileAbout.textContent;
+  popup.classList.add('popup_opened');
+  profilePopup.classList.add('popup__container_opened');
+  profilePopupName.value = profileName.textContent;
+  profilePopupAbout.value = profileAbout.textContent;
 }
 function cardPopupOpened() {
-	popup.classList.add('popup_opened');
-	cardPopup.classList.add('popup__container_opened');
+  popup.classList.add('popup_opened');
+  cardPopup.classList.add('popup__container_opened');
 }
 function popupClose(popupContainerType) {
-	popup.classList.remove('popup_opened');
-	popupContainerType.classList.remove('popup__container_opened');
+  popup.classList.remove('popup_opened');
+  popupContainerType.classList.remove('popup__container_opened');
 }
 editButton.addEventListener('click', profilePopupOpened);
 addButton.addEventListener('click', cardPopupOpened);
@@ -52,100 +52,69 @@ cardPopupCloseButton.addEventListener('click', () => popupClose(cardPopup));
 
 ///////////////////////////////////////////////
 function profileFormSubmitHandler(evt) {
-	evt.preventDefault();
-	profileName.textContent = profilePopupName.value;
-	profileAbout.textContent = profilePopupAbout.value;
-	popup.classList.remove('popup_opened');
-	profilePopup.classList.remove('popup__container_opened');
+  evt.preventDefault();
+  profileName.textContent = profilePopupName.value;
+  profileAbout.textContent = profilePopupAbout.value;
+  popup.classList.remove('popup_opened');
+  profilePopup.classList.remove('popup__container_opened');
 }
 profilePopupForm.addEventListener('submit', profileFormSubmitHandler);
 ////////////////////////////////////////////////
 const initialCards = [
-	{
-		name: 'Архыз',
-		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-	},
-	{
-		name: 'Челябинская область',
-		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-	},
-	{
-		name: 'Иваново',
-		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-	},
-	{
-		name: 'Камчатка',
-		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-	},
-	{
-		name: 'Холмогорский район',
-		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-	},
-	{
-		name: 'Байкал',
-		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-	}
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
 ];
 let galleryList = content.querySelector('.gallery__list');
 function addPhoto(link, name) {
-	link = link.trim();
-	name = name.trim().replace(/[^a-zA-ZА-ЯЁа-яё0-9\s]/gi, '');
-	let galleryItem = document.createElement('li');
-	galleryItem.classList.add('gallery__item');
 
-	let galleryPhoto = document.createElement('img');
-	galleryPhoto.classList.add('gallery__photo');
-	galleryPhoto.setAttribute('src', link);
-	galleryPhoto.setAttribute('alt', name);
+  link = link.trim();
+  name = name.trim().replace(/[^a-zA-ZА-ЯЁа-яё0-9\s]/gi, '');
 
-	let galleryName = document.createElement('div');
+  let itemTemplate = document.querySelector('#item-template').content;
+  let itemElement = itemTemplate.querySelector('.gallery__item').cloneNode(true);
 
-	galleryName.classList.add('gallery__name');
+  itemElement.querySelector('.gallery__photo').src = link;
+  itemElement.querySelector('.gallery__photo').alt = name;
 
-	let galleryTitle = document.createElement('h2');
-	galleryTitle.classList.add('gallery__title');
-	galleryTitle.textContent = name;
-
-	let buttonLike = document.createElement('button');
-	buttonLike.classList.add('button', 'button_type_like');
-	buttonLike.setAttribute('type', 'button');
-
-	galleryName.append(galleryTitle, buttonLike);
-	galleryItem.append(galleryPhoto, galleryName);
-	galleryList.append(galleryItem);
+  itemElement.querySelector('.gallery__title').textContent = name;
+  galleryList.prepend(itemElement);
 
 }
 for (let i = 0; i < initialCards.length; i++) {
 
-	addPhoto(initialCards[i].link, initialCards[i].name);
+  addPhoto(initialCards[i].link, initialCards[i].name);
 
 }
-
-
-// for (let i = 0; i < initialCards.length; i++) {
-// 	galleryList.insertAdjacentHTML('beforeend', `
-//   <li class="gallery__item">
-//           <img src=${initialCards[i].link} alt=${initialCards[i].name} class="gallery__photo" />
-//           <div class="gallery__name">
-//             <h2 class="gallery__title">${initialCards[i].name}</h2>
-//             <button class="button button_type_like" type="button"></button>
-//           </div>
-//         </li>`);
-
-// }
 ///////////////////////////////////////////////
 function cardFormSubmitHandler(evt) {
-	evt.preventDefault();
-	galleryList.insertAdjacentHTML('afterbegin', `
-  <li class="gallery__item">
-          <img src=${cardPopupLink.value} alt=${cardPopupName.value} class="gallery__photo" />
-          <div class="gallery__name">
-            <h2 class="gallery__title">${cardPopupName.value}</h2>
-            <button class="button button_type_like" type="button"></button>
-          </div>
-        </li>`);
-	popup.classList.remove('popup_opened');
-	cardPopup.classList.remove('popup__container_opened');
+  evt.preventDefault();
+  addPhoto(cardPopupLink.value, cardPopupName.value);
+  popup.classList.remove('popup_opened');
+  cardPopup.classList.remove('popup__container_opened');
+  cardPopupLink.value = '';
+  cardPopupName.value = '';
 }
 cardPopupForm.addEventListener('submit', cardFormSubmitHandler);
 ////////////////////////////////////////////////////////////////
