@@ -87,17 +87,52 @@ const initialCards = [
 	}
 ];
 let galleryList = content.querySelector('.gallery__list');
-for (let i = 0; i < initialCards.length; i++) {
-	galleryList.insertAdjacentHTML('beforeend', `
-  <li class="gallery__item">
-          <img src=${initialCards[i].link} alt=${initialCards[i].name} class="gallery__photo" />
-          <div class="gallery__name">
-            <h2 class="gallery__title">${initialCards[i].name}</h2>
-            <button class="button button_type_like" type="button"></button>
-          </div>
-        </li>`);
+function addPhoto(link, name) {
+	link = link.trim();
+	name = name.trim().replace(/[^a-zA-ZА-ЯЁа-яё0-9\s]/gi, '');
+	let galleryItem = document.createElement('li');
+	galleryItem.classList.add('gallery__item');
+
+	let galleryPhoto = document.createElement('img');
+	galleryPhoto.classList.add('gallery__photo');
+	galleryPhoto.setAttribute('src', link);
+	galleryPhoto.setAttribute('alt', name);
+
+	let galleryName = document.createElement('div');
+
+	galleryName.classList.add('gallery__name');
+
+	let galleryTitle = document.createElement('h2');
+	galleryTitle.classList.add('gallery__title');
+	galleryTitle.textContent = name;
+
+	let buttonLike = document.createElement('button');
+	buttonLike.classList.add('button', 'button_type_like');
+	buttonLike.setAttribute('type', 'button');
+
+	galleryName.append(galleryTitle, buttonLike);
+	galleryItem.append(galleryPhoto, galleryName);
+	galleryList.append(galleryItem);
 
 }
+for (let i = 0; i < initialCards.length; i++) {
+
+	addPhoto(initialCards[i].link, initialCards[i].name);
+
+}
+
+
+// for (let i = 0; i < initialCards.length; i++) {
+// 	galleryList.insertAdjacentHTML('beforeend', `
+//   <li class="gallery__item">
+//           <img src=${initialCards[i].link} alt=${initialCards[i].name} class="gallery__photo" />
+//           <div class="gallery__name">
+//             <h2 class="gallery__title">${initialCards[i].name}</h2>
+//             <button class="button button_type_like" type="button"></button>
+//           </div>
+//         </li>`);
+
+// }
 ///////////////////////////////////////////////
 function cardFormSubmitHandler(evt) {
 	evt.preventDefault();
