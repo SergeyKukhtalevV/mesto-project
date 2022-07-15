@@ -26,9 +26,6 @@ const profilePopupAbout = profilePopup.querySelector('#about-yourself');
 const cardPopupName = cardPopup.querySelector('#name-card');
 const cardPopupLink = cardPopup.querySelector('#link-card');
 
-// console.log(profilePopupName.textContent);
-// console.log(profilePopupAbout.textContent);
-
 //Обработка события click при нажитии на кпонку редактировать и добавить
 function profilePopupOpened() {
   popup.classList.add('popup_opened');
@@ -99,8 +96,15 @@ function addPhoto(link, name) {
   itemElement.querySelector('.gallery__photo').alt = name;
 
   itemElement.querySelector('.gallery__title').textContent = name;
+
   itemElement.querySelector('.button_type_like').addEventListener('click', function (event) {
     event.target.classList.toggle('button_type_like-active');
+  });
+
+  const deleteButton = itemElement.querySelector('.button_type_delete');
+  deleteButton.addEventListener('click', function (event) {
+    const listItem = event.target.closest('.gallery__item');
+    listItem.remove();
   });
   galleryList.prepend(itemElement);
 
