@@ -1,0 +1,23 @@
+.figure__image {
+  max-height: 540px;
+  width: 100%;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 1023px) {
+  .figure__image {
+    max-width: 688px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .figure__image {
+    max-width: 345px;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .figure__image {
+    width: 240px;
+  }
+}

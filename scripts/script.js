@@ -9,12 +9,11 @@ const popup = document.querySelector('.popup');
 const popupContainer = popup.querySelectorAll('.popup__container');
 let profilePopup = document.querySelector('.popup__container_type_user-info');
 let cardPopup = document.querySelector('.popup__container_type_card-add');
-console.log(profilePopup);
+let imagePopup = document.querySelector('.popup__container_type_photo');
 
 const profilePopupCloseButton = profilePopup.querySelector('.button_type_сlose');
-console.dir(profilePopupCloseButton);
 const cardPopupCloseButton = cardPopup.querySelector('.button_type_сlose');
-console.dir(cardPopupCloseButton);
+const imagePopupCloseButton = imagePopup.querySelector('.button_type_сlose');
 
 const profilePopupSubmitButton = profilePopup.querySelector('.button_type_submit');
 const CardPopupSubmitButton = cardPopup.querySelector('.button_type_submit');
@@ -46,7 +45,7 @@ addButton.addEventListener('click', cardPopupOpened);
 //Обработка события click при нажитии на кпонку закрыть
 profilePopupCloseButton.addEventListener('click', () => popupClose(profilePopup));
 cardPopupCloseButton.addEventListener('click', () => popupClose(cardPopup));
-
+imagePopupCloseButton.addEventListener('click', () => popupClose(imagePopup));
 ///////////////////////////////////////////////
 function profileFormSubmitHandler(evt) {
   evt.preventDefault();
@@ -96,18 +95,30 @@ function addPhoto(link, name) {
   itemElement.querySelector('.gallery__photo').alt = name;
 
   itemElement.querySelector('.gallery__title').textContent = name;
-
+  ///////////////////////////////////////
+  // Обработка нажатия лайка изображения
   itemElement.querySelector('.button_type_like').addEventListener('click', function (event) {
     event.target.classList.toggle('button_type_like-active');
   });
-
+  ///////////////////////////////////////////////////
+  // Обработка удаления изображения
   const deleteButton = itemElement.querySelector('.button_type_delete');
   deleteButton.addEventListener('click', function (event) {
     const listItem = event.target.closest('.gallery__item');
     listItem.remove();
   });
   galleryList.prepend(itemElement);
-
+  ///////////////////////////////////////////////////
+  // Обработка нажатия на изображение
+  const imageItem = itemElement.querySelector('.gallery__photo');
+  imageItem.addEventListener('click', function (event) {
+    const listItem = event.target.closest('.gallery__item');
+    popup.classList.add('popup_opened');
+    imagePopup.classList.add('popup__container_opened');
+    imagePopup.querySelector('.figure__image').src = listItem.querySelector('.gallery__photo').src;
+    imagePopup.querySelector('.figure__image').alt = listItem.querySelector('.gallery__photo').alt;
+    imagePopup.querySelector('.figure__caption').textContent = listItem.querySelector('.gallery__title').textContent;
+  });
 }
 for (let i = 0; i < initialCards.length; i++) {
 
@@ -115,6 +126,7 @@ for (let i = 0; i < initialCards.length; i++) {
 
 }
 ///////////////////////////////////////////////
+// Обработка формы добавления изображения
 function cardFormSubmitHandler(evt) {
   evt.preventDefault();
   addPhoto(cardPopupLink.value, cardPopupName.value);
@@ -124,9 +136,3 @@ function cardFormSubmitHandler(evt) {
   cardPopupName.value = '';
 }
 cardPopupForm.addEventListener('submit', cardFormSubmitHandler);
-////////////////////////////////////////////////////////////////
-// const likeButtons = content.querySelectorAll('.button_type_like');
-// console.dir(likeButtons);
-// likeButtons.addEventListener('click', function () {
-// 	console.log('LIKE!');
-// });

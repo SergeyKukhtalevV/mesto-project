@@ -37,6 +37,11 @@
 @import url(../blocks/button/_type/button_type_сlose.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__container/_opened/popup__container_opened.css);
+@import url(../blocks/popup/__container/_type/popup__container_type_photo.css);
+/*figure*/
+@import url(../blocks/figure/figure.css);
+@import url(../blocks/figure/__image/figure__image.css);
+@import url(../blocks/figure/__caption/figure__caption.css);
 /* footer */
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copy/footer__copy.css);
