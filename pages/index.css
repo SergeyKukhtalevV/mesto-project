@@ -19,10 +19,13 @@
 @import url(../blocks/gallery/gallery.css);
 @import url(../blocks/gallery/__list/gallery__list.css);
 @import url(../blocks/gallery/__item/gallery__item.css);
+@import url(../blocks/gallery/__img/gallery__img.css);
 @import url(../blocks/gallery/__photo/gallery__photo.css);
 @import url(../blocks/gallery/__name/gallery__name.css);
 @import url(../blocks/gallery/__title/gallery__title.css);
 @import url(../blocks/button/_type/button_type_like.css);
+@import url(../blocks/button/_type/button_type_like-active.css);
+@import url(../blocks/button/_type/button_type_delete.css);
 /*popup*/
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/__container/popup__container.css);
@@ -33,6 +36,12 @@
 @import url(../blocks/button/_type/button_type_submit.css);
 @import url(../blocks/button/_type/button_type_сlose.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__container/_opened/popup__container_opened.css);
+@import url(../blocks/popup/__container/_type/popup__container_type_photo.css);
+/*figure*/
+@import url(../blocks/figure/figure.css);
+@import url(../blocks/figure/__image/figure__image.css);
+@import url(../blocks/figure/__caption/figure__caption.css);
 /* footer */
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copy/footer__copy.css);
