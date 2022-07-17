@@ -93,7 +93,7 @@ function addPhoto(link, name) {
 
   itemElement.querySelector('.gallery__photo').src = link;
   itemElement.querySelector('.gallery__photo').alt = name;
-
+  
   itemElement.querySelector('.gallery__title').textContent = name;
   ///////////////////////////////////////
   // Обработка нажатия лайка изображения
@@ -111,6 +111,12 @@ function addPhoto(link, name) {
   ///////////////////////////////////////////////////
   // Обработка нажатия на изображение
   const imageItem = itemElement.querySelector('.gallery__photo');
+  //Обработка события error при загрузки изображения
+  imageItem.addEventListener('error', function () {
+    console.log("./images/image-placeholder.jpg");
+    imageItem.setAttribute('src', './images/image-placeholder.jpg');
+  });
+
   imageItem.addEventListener('click', function (event) {
     const listItem = event.target.closest('.gallery__item');
     popup.classList.add('popup_opened');
@@ -130,6 +136,7 @@ for (let i = 0; i < initialCards.length; i++) {
 function cardFormSubmitHandler(evt) {
   evt.preventDefault();
   addPhoto(cardPopupLink.value, cardPopupName.value);
+
   popup.classList.remove('popup_opened');
   cardPopup.classList.remove('popup__container_opened');
   cardPopupLink.value = '';
