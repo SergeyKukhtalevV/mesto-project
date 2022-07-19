@@ -22,9 +22,14 @@ const profilePopupAbout = profilePopup.querySelector('#about-yourself');
 profilePopupName.value = profileName.textContent;
 profilePopupAbout.value = profileAbout.textContent;
 
-
 const cardPopupName = cardPopup.querySelector('#name-card');
 const cardPopupLink = cardPopup.querySelector('#link-card');
+
+const itemTemplate = document.querySelector('#item-template').content;
+
+const figureImage = imagePopup.querySelector('.figure__image');
+const figureCaption = imagePopup.querySelector('.figure__caption');
+
 
 const galleryList = content.querySelector('.gallery__list');
 ///////////////////////////////////////////////////////////////
@@ -104,9 +109,6 @@ function openImage(event) {
   const photoGallery = listItem.querySelector('.gallery__photo');
   const titleGallery = listItem.querySelector('.gallery__title');
 
-  const figureImage = imagePopup.querySelector('.figure__image');
-  const figureCaption = imagePopup.querySelector('.figure__caption');
-
   openPopup(imagePopup);
   figureImage.src = photoGallery.src;
   figureImage.alt = photoGallery.alt;
@@ -114,12 +116,14 @@ function openImage(event) {
 }
 
 //***************************************************************************** */
-
+function getCard(element, container) {
+  container.prepend(element);
+}
+//***************************************************************************** */
 function createCard(link, name) {
   link = link.trim();
   name = name.trim();
 
-  const itemTemplate = document.querySelector('#item-template').content;
   const itemElement = itemTemplate.querySelector('.gallery__item').cloneNode(true);
   const imageItem = itemElement.querySelector('.gallery__photo');
   const titleItem = itemElement.querySelector('.gallery__title');
@@ -135,20 +139,19 @@ function createCard(link, name) {
   imageItem.addEventListener('error', () => loadDefaultImage(imageItem));
   imageItem.addEventListener('click', openImage);
 
-  galleryList.prepend(itemElement);
+  return itemElement;
 }
-
+//Начальная вставка карточек "из коробки"
 for (let i = 0; i < initialCards.length; i++) {
 
-  createCard(initialCards[i].link, initialCards[i].name);
+  getCard(createCard(initialCards[i].link, initialCards[i].name), galleryList);
 
 }
 ///////////////////////////////////////////////
 // Обработка формы добавления изображения
 function formCardSubmitHandler(evt) {
   evt.preventDefault();
-  createCard(cardPopupLink.value, cardPopupName.value);
-
+  getCard(createCard(cardPopupLink.value, cardPopupName.value), galleryList);
   closePopup(cardPopup);
   cardPopupLink.value = '';
   cardPopupName.value = '';
