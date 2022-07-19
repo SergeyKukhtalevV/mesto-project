@@ -119,11 +119,12 @@ function openImage(event) {
 }
 
 //***************************************************************************** */
-function getCard(element, container) {
-	container.prepend(element);
+function createCard(link, name) {
+	const itemElement = getCard(link, name);
+	galleryList.prepend(itemElement);
 }
 //***************************************************************************** */
-function createCard(link, name) {
+function getCard(link, name) {
 	link = link.trim();
 	name = name.trim();
 
@@ -147,16 +148,15 @@ function createCard(link, name) {
 //Начальная вставка карточек "из коробки"
 for (let i = 0; i < initialCards.length; i++) {
 
-	getCard(createCard(initialCards[i].link, initialCards[i].name), galleryList);
+	createCard(initialCards[i].link, initialCards[i].name);
 
 }
 ///////////////////////////////////////////////
 // Обработка формы добавления изображения
 function handleCardFormSubmit(evt) {
 	evt.preventDefault();
-	getCard(createCard(cardPopupLink.value, cardPopupName.value), galleryList);
+	createCard(cardPopupLink.value, cardPopupName.value);
 	closePopup(cardPopup);
-	cardPopupLink.value = '';
-	cardPopupName.value = '';
+	evt.target.reset();
 }
 cardPopupForm.addEventListener('submit', handleCardFormSubmit);
