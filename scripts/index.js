@@ -19,6 +19,10 @@ const cardPopupForm = cardPopup.querySelector('.popup__form');
 const profilePopupName = profilePopup.querySelector('#name');
 const profilePopupAbout = profilePopup.querySelector('#about-yourself');
 
+profilePopupName.value = profileName.textContent;
+profilePopupAbout.value = profileAbout.textContent;
+
+
 const cardPopupName = cardPopup.querySelector('#name-card');
 const cardPopupLink = cardPopup.querySelector('#link-card');
 
@@ -53,8 +57,6 @@ const initialCards = [
 //Функция открытия popup
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  profilePopupName.value = profileName.textContent;
-  profilePopupAbout.value = profileAbout.textContent;
 }
 //Функция закрытии popup
 function closePopup(popup) {
@@ -73,7 +75,7 @@ function formProfileSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = profilePopupName.value;
   profileAbout.textContent = profilePopupAbout.value;
-  profilePopup.classList.remove('popup_opened');
+  closePopup(profilePopup);
 }
 profilePopupForm.addEventListener('submit', formProfileSubmitHandler);
 
@@ -91,7 +93,7 @@ function deleteCard(event) {
 
 ///////////////////////////////////////////////////
 //Обработка события error при загрузки изображения
-function noLoadImage(imageItem) {
+function loadDefaultImage(imageItem) {
   imageItem.setAttribute('src', './images/image-placeholder.jpg');
 }
 
@@ -130,7 +132,7 @@ function createCard(link, name) {
 
   likeItem.addEventListener('click', takeLike);
   deleteItem.addEventListener('click', deleteCard);
-  imageItem.addEventListener('error', () => noLoadImage(imageItem));
+  imageItem.addEventListener('error', () => loadDefaultImage(imageItem));
   imageItem.addEventListener('click', openImage);
 
   galleryList.prepend(itemElement);
@@ -147,7 +149,7 @@ function formCardSubmitHandler(evt) {
   evt.preventDefault();
   createCard(cardPopupLink.value, cardPopupName.value);
 
-  cardPopup.classList.remove('popup_opened');
+  closePopup(cardPopup);
   cardPopupLink.value = '';
   cardPopupName.value = '';
 }
