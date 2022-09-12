@@ -168,3 +168,10 @@ document.addEventListener('keydown', function (evt) {
     closePopup(popupOpened);
   }
 });
+// закрытие модального окна по клику на оверлей
+document.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('popup_opened')) {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+});
