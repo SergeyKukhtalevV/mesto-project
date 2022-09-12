@@ -160,3 +160,11 @@ function handleCardFormSubmit(evt) {
   evt.target.reset();
 }
 cardPopupForm.addEventListener('submit', handleCardFormSubmit);
+////////////////////////////////////////////////////
+// закрытие модального окна по нажатию на Escape
+document.addEventListener('keydown', function (evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if(evt.key === 'Escape' &&  popupOpened !== null) {
+    closePopup(popupOpened);
+  }
+});
