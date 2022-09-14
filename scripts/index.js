@@ -70,9 +70,9 @@ editButton.addEventListener('click', () => {
 });
 addButton.addEventListener('click', () => openPopup(cardPopup));
 
-//Обработка события click при нажитии на кпонку закрыть
+//Обработка события click при нажатии на кнопку закрыть
 closeButtons.forEach((button) => {
-  // находим 1 раз ближайший к крестику попап
+  // находим 1 раз ближайший к крестику popup
   const popup = button.closest('.popup');
   // устанавливаем обработчик закрытия на крестик
   button.addEventListener('click', () => closePopup(popup));
