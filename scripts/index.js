@@ -85,7 +85,6 @@ function handleProfileFormSubmit(evt) {
   profileAbout.textContent = profilePopupAbout.value;
   closePopup(profilePopup);
 }
-profilePopupForm.addEventListener('submit', handleProfileFormSubmit);
 
 //*******************************************************************************/
 // Обработка нажатия лайка изображения
@@ -122,7 +121,7 @@ function hideInputError(formElement, inputElement) {
 // Функция для проверки валидности коллекции validity input-ов
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
-    console.log(inputElement.validity);
+    //console.log(inputElement.validity);
     return !inputElement.validity.valid;
   });
 }
@@ -172,7 +171,12 @@ function enableValidation() {
   const formList = Array.from(document.querySelectorAll('.popup__form'));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', function (evt) {
-      evt.preventDefault();
+      if(formElement.getAttribute('name') === 'edit-profile') {
+        handleProfileFormSubmit(evt);
+      }
+      if(formElement.getAttribute('name') === 'card-add') {
+        handleCardFormSubmit(evt);
+      }
     });
     const fieldsetList = Array.from(formElement.querySelectorAll('.popup__fieldset'));
     fieldsetList.forEach((fieldsetElement) => {
@@ -235,7 +239,6 @@ function handleCardFormSubmit(evt) {
   closePopup(cardPopup);
   evt.target.reset();
 }
-cardPopupForm.addEventListener('submit', handleCardFormSubmit);
 //////////////////////////////////////////////////////////////////////////////
 // закрытие модального окна по нажатию на Escape
 document.addEventListener('keydown', function (evt) {
