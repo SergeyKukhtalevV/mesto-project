@@ -79,13 +79,17 @@
 <div class="popup card-popup">
   <div class="popup__container popup__container_type_card-add">
     <button class="button button_type_сlose" type="button" aria-label="Закрыть всплывающее окно"></button>
-    <form class="popup__form" action="url" name="card-add">
+    <form class="popup__form" action="url" name="card-add" novalidate>
       <fieldset class="popup__fieldset popup__contact-info">
         <h2 class="popup__heading">Новое место</h2>
-        <input required name="name-card" type="text" class="popup__input-text" id="name-card"
+        <input required minlength="2" maxlength="30" pattern="^[a-zA-Zа-яА-Я-\s]+$"
+               data-error-message="Разрешены только латинские буквы, кириллица, пробелы и дефис."
+               name="name-card" type="text" class="popup__input-text" id="name-card"
                placeholder="Название"/>
-        <input required name="link-card" type="text" class="popup__input-text" id="link-card"
+        <span class="popup__input-error name-card-error"></span>
+        <input required name="link-card" type="url" class="popup__input-text" id="link-card"
                placeholder="Ссылка на картинку"/>
+        <span class="popup__input-error link-card-error"></span>
         <button class="button button_type_submit " type="submit">
           Сохранить
         </button>

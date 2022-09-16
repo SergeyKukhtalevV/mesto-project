@@ -122,6 +122,7 @@ function hideInputError(formElement, inputElement) {
 // Функция для проверки валидности коллекции validity input-ов
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
+    console.log(inputElement.validity);
     return !inputElement.validity.valid;
   });
 }
@@ -157,7 +158,7 @@ function setEventListeners(formElement) {
   const inputList = Array.from(formElement.querySelectorAll(`.popup__input-text`));
   // Найдём в текущей форме кнопку отправки
   const buttonElement = formElement.querySelector('.button_type_submit');
-  //toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
