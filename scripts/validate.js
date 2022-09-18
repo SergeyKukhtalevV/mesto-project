@@ -1,3 +1,5 @@
+import {handleProfileFormSubmit, handleCardFormSubmit} from "./index.js";
+
 // Функция отображения сообщения об ошибках
 function showInputError(formElement, inputElement, errorMessage) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
