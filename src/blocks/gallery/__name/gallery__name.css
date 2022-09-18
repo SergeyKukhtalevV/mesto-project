@@ -1,0 +1,11 @@
+.gallery__name {
+  align-items: center;
+  background-color: #fff;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  padding: 25px 0;
+  justify-content: space-between;
+  max-width: 282px;
+  margin: 0;
+  width: 100%;
+}

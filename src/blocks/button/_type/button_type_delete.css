@@ -1,0 +1,14 @@
+.button_type_delete {
+  background-image: url(../../../images/basket/basket.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  box-sizing: border-box;
+  height: 19px;
+  margin: 0;
+  min-width: 18px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}

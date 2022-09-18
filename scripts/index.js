@@ -1,6 +1,7 @@
 import enableValidation from "./validate.js";
 import createCard from "./card.js";
 import {openPopup, closePopup} from "./modal.js";
+import './styles/index.css'; // добавьте импорт главного файла стилей
 
 //Объявляем переменные и константы
 const content = document.querySelector('.content');

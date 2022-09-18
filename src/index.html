@@ -8,18 +8,17 @@
   <meta name="keywords" content="Фотографии, интересные места, Россия"/>
   <meta name="author" content="Кухталев Сергей"/>
   <title>Места</title>
-  <link rel="stylesheet" href="./pages/index.css"/>
 </head>
 
 <body class="page">
 <header class="header">
-  <img src="./images/logo.svg" alt="svg изображение логотипа на английском языке: mesto Russia"
+  <img src="<%=require('./images/logo.svg')%>" alt="svg изображение логотипа на английском языке: mesto Russia"
        class="header__logo"/>
 </header>
 <main class="content">
   <section class="profile">
     <div class="profile__content">
-      <img src="./images/avatar_1x.png" alt="фотограмия пользователя" class="profile__avatar"/>
+      <img src="<%=require('./images/avatar_1x.png')%>" alt="фотография пользователя" class="profile__avatar"/>
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <button class="button button_type_edit" type="button" aria-label="Редактировать профиль"></button>

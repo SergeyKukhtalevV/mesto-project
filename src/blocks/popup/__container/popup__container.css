@@ -1,0 +1,9 @@
+.popup__container {
+  /* display: none; */
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  height: min-content;
+  position: relative;
+}
