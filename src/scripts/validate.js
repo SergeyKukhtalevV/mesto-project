@@ -17,7 +17,6 @@ function hideInputError(formElement, inputElement) {
 // Функция для проверки валидности коллекции validity input-ов
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
-    //console.log(inputElement.validity);
     return !inputElement.validity.valid;
   });
 }

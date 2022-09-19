@@ -1,7 +1,7 @@
 import enableValidation from "./validate.js";
 import createCard from "./card.js";
 import {openPopup, closePopup} from "./modal.js";
-import '../styles/index.css'; // добавьте импорт главного файла стилей
+import '../styles/index.css';
 
 //Объявляем переменные и константы
 const content = document.querySelector('.content');
@@ -15,9 +15,6 @@ const cardPopup = document.querySelector('.card-popup');
 const imagePopup = document.querySelector('.image-popup');
 
 const closeButtons = document.querySelectorAll('.button_type_сlose');
-
-const profilePopupForm = profilePopup.querySelector('.popup__form');
-const cardPopupForm = cardPopup.querySelector('.popup__form');
 
 const profilePopupName = profilePopup.querySelector('#name');
 const profilePopupAbout = profilePopup.querySelector('#about-yourself');
@@ -88,9 +85,7 @@ export function handleProfileFormSubmit(evt) {
 //*******************************************************************************/
 //Начальная вставка карточек "из коробки"
 for (let i = 0; i < initialCards.length; i++) {
-
   createCard(initialCards[i].link, initialCards[i].name);
-
 }
 ///////////////////////////////////////////////
 // Обработка формы добавления изображения
@@ -115,7 +110,6 @@ document.addEventListener('click', function (evt) {
     closePopup(popupOpened);
   }
 });
-
 /****************************************************************************/
 enableValidation();
 /****************************************************************************/
