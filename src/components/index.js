@@ -111,5 +111,16 @@ document.addEventListener('click', function (evt) {
   }
 });
 /****************************************************************************/
-enableValidation();
+
+//enableValidation();
 /****************************************************************************/
+
+enableValidation({
+  formSelector: '.popup__form',
+  fieldsetSelector: '.popup__fieldset',
+  inputSelector: '.popup__input-text',
+  submitButtonSelector: '.button_type_submit',
+  inactiveButtonClass: 'button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+});

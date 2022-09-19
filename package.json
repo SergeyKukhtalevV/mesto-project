@@ -2,7 +2,7 @@
   "name": "mesto",
   "version": "0.0.1",
   "description": "Проектная работа № 4 (Спринт № 3)\r Подготовлена: Кухталев С.В.\r студент 15 когорты направления \"Веб-разработчик плюс\" поток _\"royalblue\"_",
-  "main": "./scripts/index.js",
+  "main": "./components/index.js",
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack serve"
