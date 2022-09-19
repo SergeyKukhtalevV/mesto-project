@@ -4,7 +4,7 @@ import {imagePopup, figureImage, figureCaption} from "./index.js";
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
-//Функция закрытии popup
+//Функция закрытия popup
 export function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }

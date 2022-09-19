@@ -1,6 +1,6 @@
 .button_type_submit {
   background-color: rgba(0, 0, 0, 1);
-  margin-top: 48px;
+  /*margin-top: 48px;*/
   width: 100%;
   min-height: 50px;
   border-radius: 2px;
@@ -14,7 +14,7 @@
 }
 @media screen and (max-width: 767px) {
   .button_type_submit {
-    margin-top: 45px;
+    /*margin-top: 45px;*/
     font-size: 14px;
     line-height: 17px;
   }
