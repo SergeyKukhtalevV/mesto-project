@@ -96,13 +96,6 @@ export function handleCardFormSubmit(evt) {
   evt.target.reset();
 }
 //////////////////////////////////////////////////////////////////////////////
-// закрытие модального окна по нажатию на Escape
-document.addEventListener('keydown', function (evt) {
-  const popupOpened = document.querySelector('.popup_opened');
-  if(evt.key === 'Escape' &&  popupOpened !== null) {
-    closePopup(popupOpened);
-  }
-});
 // закрытие модального окна по клику на оверлей
 document.addEventListener('click', function (evt) {
   if (evt.target.classList.contains('popup_opened')) {
