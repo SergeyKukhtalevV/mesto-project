@@ -1,4 +1,4 @@
-import enableValidation from "./validate.js";
+import  enableValidation from "./validate.js";
 import createCard from "./card.js";
 import {openPopup, closePopup} from "./modal.js";
 import '../styles/index.css';
@@ -15,6 +15,7 @@ const cardPopup = document.querySelector('.card-popup');
 const imagePopup = document.querySelector('.image-popup');
 
 const popups = document.querySelectorAll('.popup');
+const forms = document.querySelectorAll('.popup__form');
 
 const profilePopupName = profilePopup.querySelector('#name');
 const profilePopupAbout = profilePopup.querySelector('#about-yourself');
@@ -77,8 +78,7 @@ popups.forEach((popup) => {
 //////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////
-export function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
+function handleProfileFormSubmit() {
   profileName.textContent = profilePopupName.value;
   profileAbout.textContent = profilePopupAbout.value;
   closePopup(profilePopup);
@@ -91,8 +91,7 @@ for (let i = 0; i < initialCards.length; i++) {
 }
 ///////////////////////////////////////////////
 // Обработка формы добавления изображения
-export function handleCardFormSubmit(evt, inactiveButtonClass) {
-  evt.preventDefault();
+function handleCardFormSubmit(evt, inactiveButtonClass) {
   createCard(cardPopupLink.value, cardPopupName.value);
   const submitButton = cardPopup.querySelector('.button_type_submit');
   submitButton.classList.add(inactiveButtonClass);
@@ -100,7 +99,19 @@ export function handleCardFormSubmit(evt, inactiveButtonClass) {
   closePopup(cardPopup);
   evt.target.reset();
 }
+//////////////////////////////////////////////////
+forms.forEach((formElement) => {
+  formElement.addEventListener('submit', function (evt) {
+    evt.preventDefault();
 
+    if (formElement.getAttribute('name') === 'edit-profile') {
+      handleProfileFormSubmit();
+    }
+    if (formElement.getAttribute('name') === 'card-add') {
+      handleCardFormSubmit(evt, 'button_inactive');
+    }
+  });
+});
 
 /****************************************************************************/
 enableValidation({

@@ -1,5 +1,3 @@
-import {handleCardFormSubmit, handleProfileFormSubmit} from "./index.js";
-
 // Функция для обработки валидации всех форм
 export default function enableValidation({
                                            formSelector, fieldsetSelector, inputSelector,
@@ -75,14 +73,6 @@ export default function enableValidation({
 
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
-    formElement.addEventListener('submit', function (evt) {
-      if (formElement.getAttribute('name') === 'edit-profile') {
-        handleProfileFormSubmit(evt);
-      }
-      if (formElement.getAttribute('name') === 'card-add') {
-        handleCardFormSubmit(evt, inactiveButtonClass);
-      }
-    });
     const fieldsetList = Array.from(formElement.querySelectorAll(fieldsetSelector));
     fieldsetList.forEach((fieldsetElement) => {
       setEventListeners(fieldsetElement, inputSelector, submitButtonSelector, inactiveButtonClass,
