@@ -80,7 +80,7 @@ export default function enableValidation({
         handleProfileFormSubmit(evt);
       }
       if (formElement.getAttribute('name') === 'card-add') {
-        handleCardFormSubmit(evt);
+        handleCardFormSubmit(evt, inactiveButtonClass);
       }
     });
     const fieldsetList = Array.from(formElement.querySelectorAll(fieldsetSelector));

@@ -89,9 +89,12 @@ for (let i = 0; i < initialCards.length; i++) {
 }
 ///////////////////////////////////////////////
 // Обработка формы добавления изображения
-export function handleCardFormSubmit(evt) {
+export function handleCardFormSubmit(evt, inactiveButtonClass) {
   evt.preventDefault();
   createCard(cardPopupLink.value, cardPopupName.value);
+  const submitButton = cardPopup.querySelector('.button_type_submit');
+  submitButton.classList.add(inactiveButtonClass);
+  submitButton.setAttribute('disabled', 'disabled');
   closePopup(cardPopup);
   evt.target.reset();
 }
