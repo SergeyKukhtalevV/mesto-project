@@ -14,7 +14,7 @@ const profilePopup = document.querySelector('.profile-popup');
 const cardPopup = document.querySelector('.card-popup');
 const imagePopup = document.querySelector('.image-popup');
 
-const closeButtons = document.querySelectorAll('.button_type_сlose');
+const popups = document.querySelectorAll('.popup');
 
 const profilePopupName = profilePopup.querySelector('#name');
 const profilePopupAbout = profilePopup.querySelector('#about-yourself');
@@ -65,14 +65,16 @@ editButton.addEventListener('click', () => {
   profilePopupAbout.value = profileAbout.textContent;
 });
 addButton.addEventListener('click', () => openPopup(cardPopup));
-
-//Обработка события click при нажатии на кнопку закрыть
-closeButtons.forEach((button) => {
-  // находим 1 раз ближайший к крестику popup
-  const popup = button.closest('.popup');
-  // устанавливаем обработчик закрытия на крестик
-  button.addEventListener('click', () => closePopup(popup));
+//////////////////////////////////////////////////////////////////////////////
+//Обработка события click при нажатии на кнопку закрыть и закрытие модального окна по клику на оверлей
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('button_type_сlose')) {
+      closePopup(popup);
+    }
+  });
 });
+//////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////
 export function handleProfileFormSubmit(evt) {
@@ -98,14 +100,7 @@ export function handleCardFormSubmit(evt, inactiveButtonClass) {
   closePopup(cardPopup);
   evt.target.reset();
 }
-//////////////////////////////////////////////////////////////////////////////
-// закрытие модального окна по клику на оверлей
-document.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('popup_opened')) {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
-  }
-});
+
 
 /****************************************************************************/
 enableValidation({
