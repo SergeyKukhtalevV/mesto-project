@@ -4,8 +4,8 @@ import {openImage} from "./modal.js";
 
 /********************************************************************************/
 // Функция создания карточки
-export default function createCard(link, name, counter) {
-  const itemElement = getCard(link, name, counter, itemTemplate);
+export default function createCard(link, name, counter, userId, ownerId) {
+  const itemElement = getCard(link, name, counter, userId, ownerId, itemTemplate);
   galleryList.prepend(itemElement);
 }
 //***************************************************************************** */
@@ -15,7 +15,7 @@ function deleteCard(event) {
   listItem.remove();
 }
 // Функция получения свойств карточки
-function getCard(link, name, counter, itemTemplate) {
+function getCard(link, name, counter, userId, ownerId, itemTemplate) {
   link = link.trim();
   name = name.trim();
 
@@ -26,13 +26,18 @@ function getCard(link, name, counter, itemTemplate) {
   const counterLikes = itemElement.querySelector('.gallery__counter-likes');
   const deleteItem = itemElement.querySelector('.button_type_delete');
 
+  if(userId === ownerId) {
+    deleteItem.classList.add('button_visible');
+    deleteItem.addEventListener('click', deleteCard);
+  }
+
+
   imageItem.src = link;
   imageItem.alt = name;
   titleItem.textContent = name;
   counterLikes.textContent = counter;
 
   likeItem.addEventListener('click', toggleLike);
-  deleteItem.addEventListener('click', deleteCard);
   imageItem.addEventListener('error', () => loadDefaultImage(imageItem));
   imageItem.addEventListener('click', openImage);
 

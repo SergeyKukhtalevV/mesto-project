@@ -8,7 +8,9 @@
   height: 19px;
   margin: 0;
   min-width: 18px;
+  opacity: 0;
   position: absolute;
   right: 20px;
   top: 20px;
+  visibility: hidden;
 }

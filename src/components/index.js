@@ -30,6 +30,7 @@ const itemTemplate = document.querySelector('#item-template').content;
 const figureImage = imagePopup.querySelector('.figure__image');
 const figureCaption = imagePopup.querySelector('.figure__caption');
 
+let userId;
 
 const galleryList = content.querySelector('.gallery__list');
 
@@ -66,7 +67,7 @@ function handleProfileFormSubmit() {
       return Promise.reject(`Что-то пошло не так: ${res.status}`);
     })
     .then((result) => {
-      console.log(result);
+      //console.log(result);
     })
     .catch((err) => {
     console.log('Ошибка, запрос не выполнен', err);
@@ -86,7 +87,8 @@ getCards(groupId, token)
   .then((result) => {
     const cards = Array.from(result);
     cards.forEach((card) => {
-      createCard(card.link, card.name, card.likes.length);
+      createCard(card.link, card.name, card.likes.length, userId, card.owner["_id"]);
+      //console.log(card.owner["_id"]);
     });
   })
   .catch((err) => {
@@ -95,7 +97,7 @@ getCards(groupId, token)
 ///////////////////////////////////////////////
 // Обработка формы добавления изображения
 function handleCardFormSubmit(evt, inactiveButtonClass) {
-  createCard(cardPopupLink.value, cardPopupName.value);
+  createCard(cardPopupLink.value, cardPopupName.value, userId);
   const submitButton = cardPopup.querySelector('.button_type_submit');
   submitButton.classList.add(inactiveButtonClass);
   submitButton.setAttribute('disabled', 'disabled');
@@ -108,7 +110,7 @@ function handleCardFormSubmit(evt, inactiveButtonClass) {
       return Promise.reject(`Что-то пошло не так: ${res.status}`);
     })
     .then((result) => {
-      console.log(result);
+      //console.log(result);
     })
     .catch((err) => {
       console.log('Ошибка, запрос не выполнен', err);
@@ -148,5 +150,6 @@ getUserInfo(groupId, token)
     profileName.textContent = result.name;
     profileAbout.textContent = result.about;
     profileAvatar.src = result.avatar;
+    userId = result["_id"];
     //console.log(result["_id"]);
   });
