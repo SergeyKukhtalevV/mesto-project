@@ -1,6 +1,7 @@
 import  enableValidation from "./validate.js";
 import createCard from "./card.js";
 import {openPopup, closePopup} from "./modal.js";
+import {getCards, getUserInfo, setUserInfo, addedCard} from "./connect.js";
 import '../styles/index.css';
 
 //Объявляем переменные и константы
@@ -9,6 +10,7 @@ const editButton = content.querySelector('.button_type_edit');
 const addButton = content.querySelector('.button_type_add');
 const profileName = content.querySelector('.profile__name');
 const profileAbout = content.querySelector('.profile__about');
+const profileAvatar = content.querySelector('.profile__avatar');
 
 const profilePopup = document.querySelector('.profile-popup');
 const cardPopup = document.querySelector('.card-popup');
@@ -31,35 +33,11 @@ const figureCaption = imagePopup.querySelector('.figure__caption');
 
 const galleryList = content.querySelector('.gallery__list');
 
+const groupId = 'plus-cohort-15';
+const token = 'c362a370-694e-40e1-b195-d72fbbfd69f7';
+
 export {itemTemplate, galleryList, imagePopup, figureImage, figureCaption};
 ///////////////////////////////////////////////////////////////
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 editButton.addEventListener('click', () => {
   openPopup(profilePopup);
   profilePopupName.value = profileName.textContent;
@@ -75,20 +53,45 @@ popups.forEach((popup) => {
     }
   });
 });
-//////////////////////////////////////////////////////////////////////////////
-
 ///////////////////////////////////////////////
 function handleProfileFormSubmit() {
   profileName.textContent = profilePopupName.value;
   profileAbout.textContent = profilePopupAbout.value;
+
+  setUserInfo(groupId, token, profilePopupName.value, profilePopupAbout.value)
+    .then((res) => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+    console.log('Ошибка, запрос не выполнен', err);
+  });
   closePopup(profilePopup);
 }
 
 //*******************************************************************************/
-//Начальная вставка карточек "из коробки"
-for (let i = 0; i < initialCards.length; i++) {
-  createCard(initialCards[i].link, initialCards[i].name);
-}
+// Получения массива карточек от сервера и создание разметки
+getCards(groupId, token)
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Что-то пошло не так: ${res.status}`);
+  })
+  .then((result) => {
+    const cards = Array.from(result);
+    cards.forEach((card) => {
+      createCard(card.link, card.name);
+    });
+  })
+  .catch((err) => {
+    console.log('Ошибка, запрос не выполнен', err);
+  });
 ///////////////////////////////////////////////
 // Обработка формы добавления изображения
 function handleCardFormSubmit(evt, inactiveButtonClass) {
@@ -96,6 +99,21 @@ function handleCardFormSubmit(evt, inactiveButtonClass) {
   const submitButton = cardPopup.querySelector('.button_type_submit');
   submitButton.classList.add(inactiveButtonClass);
   submitButton.setAttribute('disabled', 'disabled');
+
+  addedCard(groupId, token, cardPopupName.value, cardPopupLink.value)
+    .then((res) => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log('Ошибка, запрос не выполнен', err);
+    });
+
   closePopup(cardPopup);
   evt.target.reset();
 }
@@ -123,3 +141,12 @@ enableValidation({
   inputErrorClass: 'popup__input-text_type_error',
   errorClass: 'popup__input-error_active'
 });
+
+getUserInfo(groupId, token)
+  .then(res => res.json())
+  .then((result) => {
+    profileName.textContent = result.name;
+    profileAbout.textContent = result.about;
+    profileAvatar.src = result.avatar;
+    //console.log(result["_id"]);
+  });
