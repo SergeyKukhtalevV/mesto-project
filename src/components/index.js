@@ -86,7 +86,7 @@ getCards(groupId, token)
   .then((result) => {
     const cards = Array.from(result);
     cards.forEach((card) => {
-      createCard(card.link, card.name);
+      createCard(card.link, card.name, card.likes.length);
     });
   })
   .catch((err) => {

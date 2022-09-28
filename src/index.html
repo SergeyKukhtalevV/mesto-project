@@ -18,7 +18,6 @@
 <main class="content">
   <section class="profile">
     <div class="profile__content">
-<!--      <img src="<%=require('./images/avatar_1x.png')%>" alt="фотография пользователя" class="profile__avatar"/>-->
       <img src="" alt="фотография пользователя" class="profile__avatar"/>
       <div class="profile__info">
         <h1 class="profile__name"></h1>
@@ -38,7 +37,10 @@
           </div>
           <div class="gallery__name">
             <h2 class="gallery__title"></h2>
-            <button class="button button_type_like" type="button"></button>
+            <div class="gallery__area-like">
+              <button class="button button_type_like" type="button"></button>
+              <div class="gallery__counter-likes">7654</div>
+            </div>
           </div>
         </li>
       </template>
