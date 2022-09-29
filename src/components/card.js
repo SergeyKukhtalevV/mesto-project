@@ -1,16 +1,18 @@
-import {itemTemplate, galleryList, deletePopup, groupId, token} from "./index.js";
+import {itemTemplate, galleryList, deletePopup} from "./index.js";
 import {toggleLike, loadDefaultImage} from "./utils.js";
 import {openPopup, openImage} from "./modal.js";
-import {putLike, removeLike} from "./connect.js";
+import {putLike, removeLike} from "./api.js";
 
 export let idCardToDelete;
 export let idCardToToggleLike;
 /********************************************************************************/
+
 // Функция создания карточки
 export function createCard(link, name, counter, userId, ownerId, cardId) {
   const itemElement = getCard(link, name, counter, userId, ownerId, cardId, itemTemplate);
   galleryList.prepend(itemElement);
 }
+
 //*******************************************************************************/
 // Функция получения свойств карточки
 function getCard(link, name, counter, userId, ownerId, cardId, itemTemplate) {
@@ -41,12 +43,11 @@ function getCard(link, name, counter, userId, ownerId, cardId, itemTemplate) {
 
   likeItem.addEventListener('click', (evt) => {
     idCardToToggleLike = evt.target.closest('.gallery__item').id;
-    console.log(idCardToToggleLike);
     toggleLike(evt);
-    if(!flagLike) {
-      putLike(groupId, token, idCardToToggleLike)
+    if (!flagLike) {
+      putLike(idCardToToggleLike)
         .then((res) => {
-          if(res.ok) {
+          if (res.ok) {
             return res.json();
           }
           return Promise.reject(`Что-то пошло не так с постановкой лайка: ${res.status}`);
@@ -60,15 +61,15 @@ function getCard(link, name, counter, userId, ownerId, cardId, itemTemplate) {
           console.log('Ошибка, запрос на увеличение количества лайков не выполнен', err);
         });
     } else {
-      removeLike(groupId, token, idCardToToggleLike)
+      removeLike(idCardToToggleLike)
         .then((res) => {
-          if(res.ok) {
+          if (res.ok) {
             return res.json();
           }
           return Promise.reject(`Что-то пошло не так с удалением лайка: ${res.status}`);
         })
         .then((result) => {
-          console.log("Сервер прислал карточку с уменьшинным счетчиком лайков", result);
+          console.log("Сервер прислал карточку с уменьшенным счетчиком лайков", result);
           flagLike = false;
           counterLikes.textContent = result.likes.length;
         })
@@ -83,6 +84,7 @@ function getCard(link, name, counter, userId, ownerId, cardId, itemTemplate) {
 
   return itemElement;
 }
+
 //*******************************************************************************/
 // Обработка локального удаления карточки
 export function deleteLocalCard(CardId) {

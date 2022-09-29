@@ -1,15 +1,16 @@
 .button_loading {
-  pointer-events: none;
   content: '';
+  pointer-events: none;
 }
+
 .button_loading::before {
   background-color: rgba(0, 0, 0, 1);
-  position: absolute;
+  color: #fff;
   content: 'Сохранение...';
-  z-index: 5;
-  width: 100%;
-  min-height: 50px;
   font-size: 18px;
   line-height: 50px;
-  color: #fff;
+  min-height: 50px;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
 }

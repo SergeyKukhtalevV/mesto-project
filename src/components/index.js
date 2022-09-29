@@ -2,8 +2,8 @@ import enableValidation from "./validate.js";
 import {createCard, deleteLocalCard, idCardToDelete} from "./card.js";
 import {openPopup, closePopup} from "./modal.js";
 import {
-  getCards, getUserInfo, setUserInfo, addedCard, deleteCardOnServer, putLike, removeLike, setUserAvatar
-} from "./connect.js";
+  getCards, getUserInfo, setUserInfo, addedCard, deleteCardOnServer, setUserAvatar
+} from "./api.js";
 import '../styles/index.css';
 
 //Объявляем переменные и константы
@@ -42,20 +42,16 @@ let cards;
 
 const galleryList = content.querySelector('.gallery__list');
 
-const groupId = 'plus-cohort-15';
-const token = 'c362a370-694e-40e1-b195-d72fbbfd69f7';
-
-export {itemTemplate, galleryList, imagePopup, figureImage, figureCaption, deletePopup, groupId, token};
+export {itemTemplate, galleryList, imagePopup, figureImage, figureCaption, deletePopup};
 ///////////////////////////////////////////////////////////////
 // Получение информации о пользователе с сервера
-getUserInfo(groupId, token)
+getUserInfo()
   .then(res => res.json())
   .then((result) => {
     profileName.textContent = result.name;
     profileAbout.textContent = result.about;
     profileAvatar.src = result.avatar;
     userId = result["_id"];
-    console.log("userId: ", result["_id"]);
   });
 ///////////////////////////////////////////////////////////////
 // Обработчик формы редактирования данных о пользователе
@@ -63,7 +59,7 @@ function handleProfileFormSubmit(evt, submitButton) {
   profileName.textContent = profilePopupName.value;
   profileAbout.textContent = profilePopupAbout.value;
 
-  setUserInfo(groupId, token, profilePopupName.value, profilePopupAbout.value)
+  setUserInfo(profilePopupName.value, profilePopupAbout.value)
     .then((res) => {
       if (res.ok) {
         return res.json();
@@ -89,7 +85,7 @@ editAvatarButton.addEventListener('click', () => {
 ///////////////////////////////////////////////////////////////
 // Обработка формы изменения аватара
 function handleEditAvatarFormSubmit(evt, submitButton, inactiveButtonClass) {
-  setUserAvatar(groupId, token, avatarPopupLink.value)
+  setUserAvatar(avatarPopupLink.value)
     .then((res) => {
       if (res.ok) {
         return res.json();
@@ -113,26 +109,23 @@ function handleEditAvatarFormSubmit(evt, submitButton, inactiveButtonClass) {
 
 ///////////////////////////////////////////////////////////////
 // Получения массива карточек от сервера и создание разметки
-function drawCards(groupId, token) {
-  getCards(groupId, token)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Что-то пошло не так: ${res.status}`);
-    })
-    .then((result) => {
-      cards = Array.from(result);
-      cards.forEach((card) => {
-        createCard(card.link, card.name, card.likes.length, userId, card.owner["_id"], card["_id"]);
-      });
-    })
-    .catch((err) => {
-      console.log('Ошибка, запрос не выполнен', err);
+getCards()
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Что-то пошло не так: ${res.status}`);
+  })
+  .then((result) => {
+    cards = Array.from(result);
+    cards.forEach((card) => {
+      createCard(card.link, card.name, card.likes.length, userId, card.owner["_id"], card["_id"]);
     });
-}
+  })
+  .catch((err) => {
+    console.log('Ошибка, запрос не выполнен', err);
+  });
 
-drawCards(groupId, token);
 ///////////////////////////////////////////////////////////////
 // Обработка формы добавления изображения
 function handleCardFormSubmit(evt, submitButton, inactiveButtonClass) {
@@ -140,7 +133,7 @@ function handleCardFormSubmit(evt, submitButton, inactiveButtonClass) {
   submitButton.classList.add(inactiveButtonClass);
   submitButton.setAttribute('disabled', 'disabled');
 
-  addedCard(groupId, token, cardPopupName.value, cardPopupLink.value)
+  addedCard(cardPopupName.value, cardPopupLink.value)
     .then((res) => {
       if (res.ok) {
         return res.json();
@@ -183,7 +176,7 @@ popups.forEach((popup) => {
 
 //////////////////////////////////////////////
 function handleDeleteFormSubmit(CardId) {
-  deleteCardOnServer(groupId, token, CardId)
+  deleteCardOnServer(CardId)
     .then((res) => {
       if (res.ok) {
         return res.json();
@@ -210,9 +203,10 @@ forms.forEach((formElement) => {
       handleProfileFormSubmit(evt, submitButton);
     }
     if (formElement.getAttribute('name') === 'card-add') {
-      handleCardFormSubmit(evt, submitButton,'button_inactive');
+      handleCardFormSubmit(evt, submitButton, 'button_inactive');
     }
     if (formElement.getAttribute('name') === 'delete-card') {
+      submitButton.classList.remove('button_loading');
       handleDeleteFormSubmit(idCardToDelete);
     }
     if (formElement.getAttribute('name') === 'edit-avatar') {
