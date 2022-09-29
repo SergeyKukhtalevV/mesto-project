@@ -1,5 +1,5 @@
 // Обработка нажатия лайка изображения
-export function toggleLike(event) {
+export function toggleLike(evt) {
   event.target.classList.toggle('button_type_like-active');
 }
 //Обработка события error при загрузке изображения

@@ -1,7 +1,7 @@
 import  enableValidation from "./validate.js";
 import {createCard, deleteLocalCard, idCardToDelete} from "./card.js";
 import {openPopup, closePopup} from "./modal.js";
-import {getCards, getUserInfo, setUserInfo, addedCard, deleteCardOnServer} from "./connect.js";
+import {getCards, getUserInfo, setUserInfo, addedCard, deleteCardOnServer, putLike, removeLike} from "./connect.js";
 import '../styles/index.css';
 
 //Объявляем переменные и константы
@@ -39,7 +39,7 @@ const galleryList = content.querySelector('.gallery__list');
 const groupId = 'plus-cohort-15';
 const token = 'c362a370-694e-40e1-b195-d72fbbfd69f7';
 
-export {itemTemplate, galleryList, imagePopup, figureImage, figureCaption, deletePopup};
+export {itemTemplate, galleryList, imagePopup, figureImage, figureCaption, deletePopup, groupId, token};
 ///////////////////////////////////////////////////////////////
 // Получение информации о пользователе с сервера
 getUserInfo(groupId, token)

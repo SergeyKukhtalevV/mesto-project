@@ -1,8 +1,10 @@
-import {itemTemplate, galleryList, deletePopup} from "./index.js";
+import {itemTemplate, galleryList, deletePopup, groupId, token} from "./index.js";
 import {toggleLike, loadDefaultImage} from "./utils.js";
 import {openPopup, openImage} from "./modal.js";
+import {putLike, removeLike} from "./connect.js";
 
 export let idCardToDelete;
+export let idCardToToggleLike;
 /********************************************************************************/
 // Функция создания карточки
 export function createCard(link, name, counter, userId, ownerId, cardId) {
@@ -21,24 +23,61 @@ function getCard(link, name, counter, userId, ownerId, cardId, itemTemplate) {
   const likeItem = itemElement.querySelector('.button_type_like');
   const counterLikes = itemElement.querySelector('.gallery__counter-likes');
   const deleteItem = itemElement.querySelector('.button_type_delete');
+  let flagLike = false;
 
   imageItem.src = link;
   imageItem.alt = name;
   titleItem.textContent = name;
   counterLikes.textContent = counter;
-  itemElement.id = '';
+  itemElement.id = cardId;
 
   if (userId === ownerId) {
     deleteItem.classList.add('button_visible');
-    itemElement.id = cardId;
     deleteItem.addEventListener('click', (evt) => {
-      console.log(evt.target.closest('.gallery__item').id);
       idCardToDelete = evt.target.closest('.gallery__item').id;
       openPopup(deletePopup);
     });
   }
 
-  likeItem.addEventListener('click', toggleLike);
+  likeItem.addEventListener('click', (evt) => {
+    idCardToToggleLike = evt.target.closest('.gallery__item').id;
+    console.log(idCardToToggleLike);
+    toggleLike(evt);
+    if(!flagLike) {
+      putLike(groupId, token, idCardToToggleLike)
+        .then((res) => {
+          if(res.ok) {
+            return res.json();
+          }
+          return Promise.reject(`Что-то пошло не так с постановкой лайка: ${res.status}`);
+        })
+        .then((result) => {
+          console.log("Сервер прислал карточку с увеличенным счетчиком лайков", result);
+          flagLike = true;
+          counterLikes.textContent = result.likes.length;
+        })
+        .catch((err) => {
+          console.log('Ошибка, запрос на увеличение количества лайков не выполнен', err);
+        });
+    } else {
+      removeLike(groupId, token, idCardToToggleLike)
+        .then((res) => {
+          if(res.ok) {
+            return res.json();
+          }
+          return Promise.reject(`Что-то пошло не так с удалением лайка: ${res.status}`);
+        })
+        .then((result) => {
+          console.log("Сервер прислал карточку с уменьшинным счетчиком лайков", result);
+          flagLike = false;
+          counterLikes.textContent = result.likes.length;
+        })
+        .catch((err) => {
+          console.log('Ошибка, запрос на уменьшение количества лайков не выполнен', err);
+        });
+    }
+  });
+
   imageItem.addEventListener('error', () => loadDefaultImage(imageItem));
   imageItem.addEventListener('click', openImage);
 

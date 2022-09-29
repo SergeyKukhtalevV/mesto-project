@@ -47,3 +47,19 @@ export function deleteCardOnServer(groupId, token, cardId) {
     }
   });
 }
+export function putLike(groupId, token, cardId) {
+  return fetch(`https://nomoreparties.co/v1/${groupId}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: {
+      authorization: token
+    }
+  })
+}
+export function removeLike(groupId, token, cardId) {
+  return fetch(`https://nomoreparties.co/v1/${groupId}/cards/likes/${cardId}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: token
+    }
+  })
+}
