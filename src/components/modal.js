@@ -10,6 +10,9 @@ function closePopupByEscape (evt) {
 //Функция открытия popup
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
+  const submitButton = popup.querySelector('.button_type_submit');
+  submitButton.classList.remove('button_loading');
+  submitButton.classList.remove('button_loaded');
   document.addEventListener('keydown', closePopupByEscape);
 }
 //Функция закрытия popup

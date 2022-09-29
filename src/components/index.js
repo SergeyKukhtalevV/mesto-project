@@ -59,7 +59,7 @@ getUserInfo(groupId, token)
   });
 ///////////////////////////////////////////////////////////////
 // Обработчик формы редактирования данных о пользователе
-function handleProfileFormSubmit() {
+function handleProfileFormSubmit(evt, submitButton) {
   profileName.textContent = profilePopupName.value;
   profileAbout.textContent = profilePopupAbout.value;
 
@@ -71,12 +71,15 @@ function handleProfileFormSubmit() {
       return Promise.reject(`Что-то пошло не так: ${res.status}`);
     })
     .then((result) => {
+      submitButton.classList.add('button_loaded');
       console.log('Запрос на изменение данных пользователя выполнен успешно.');
     })
     .catch((err) => {
       console.log('Ошибка, запрос не выполнен', err);
+    })
+    .finally(() => {
+      closePopup(profilePopup);
     });
-  closePopup(profilePopup);
 }
 
 ///////////////////////////////////////////////////////////////
@@ -85,11 +88,7 @@ editAvatarButton.addEventListener('click', () => {
 })
 ///////////////////////////////////////////////////////////////
 // Обработка формы изменения аватара
-function handleEditAvatarFormSubmit(evt, inactiveButtonClass) {
-  const submitButton = avatarPopup.querySelector('.button_type_submit');
-  submitButton.classList.add(inactiveButtonClass);
-  submitButton.setAttribute('disabled', 'disabled');
-
+function handleEditAvatarFormSubmit(evt, submitButton, inactiveButtonClass) {
   setUserAvatar(groupId, token, avatarPopupLink.value)
     .then((res) => {
       if (res.ok) {
@@ -98,13 +97,18 @@ function handleEditAvatarFormSubmit(evt, inactiveButtonClass) {
       return Promise.reject(`Что-то пошло не так: ${res.status}`);
     })
     .then((result) => {
+      submitButton.classList.add('button_loaded');
       console.log('Запрос на изменение аватара пользователя выполнен успешно.', result);
       profileAvatar.src = result.avatar;
     })
     .catch((err) => {
       console.log('Ошибка, запрос не выполнен', err);
+    })
+    .finally(() => {
+      closePopup(avatarPopup);
+      submitButton.classList.add(inactiveButtonClass);
+      submitButton.setAttribute('disabled', 'disabled');
     });
-  closePopup(avatarPopup);
 }
 
 ///////////////////////////////////////////////////////////////
@@ -131,9 +135,8 @@ function drawCards(groupId, token) {
 drawCards(groupId, token);
 ///////////////////////////////////////////////////////////////
 // Обработка формы добавления изображения
-function handleCardFormSubmit(evt, inactiveButtonClass) {
+function handleCardFormSubmit(evt, submitButton, inactiveButtonClass) {
 
-  const submitButton = cardPopup.querySelector('.button_type_submit');
   submitButton.classList.add(inactiveButtonClass);
   submitButton.setAttribute('disabled', 'disabled');
 
@@ -145,14 +148,19 @@ function handleCardFormSubmit(evt, inactiveButtonClass) {
       return Promise.reject(`Что-то пошло не так: ${res.status}`);
     })
     .then((result) => {
+      submitButton.classList.add('button_loaded');
       console.log("Сервер прислал созданный объект карточка", result);
       createCard(result.link, result.name, result.likes.length, userId, result.owner["_id"], result["_id"]);
     })
     .catch((err) => {
       console.log('Ошибка, запрос не выполнен', err);
+    })
+    .finally(() => {
+      closePopup(cardPopup);
+      submitButton.classList.add(inactiveButtonClass);
+      submitButton.setAttribute('disabled', 'disabled');
+      evt.target.reset();
     });
-  closePopup(cardPopup);
-  evt.target.reset();
 }
 
 ////////////////////////////////////////////////////////
@@ -192,25 +200,23 @@ function handleDeleteFormSubmit(CardId) {
   closePopup(deletePopup);
 }
 
-//*******************************************************************************/
-
-
 //////////////////////////////////////////////////
 forms.forEach((formElement) => {
   formElement.addEventListener('submit', function (evt) {
     evt.preventDefault();
-
+    const submitButton = evt.target.querySelector('.button_type_submit');
+    submitButton.classList.add('button_loading');
     if (formElement.getAttribute('name') === 'edit-profile') {
-      handleProfileFormSubmit();
+      handleProfileFormSubmit(evt, submitButton);
     }
     if (formElement.getAttribute('name') === 'card-add') {
-      handleCardFormSubmit(evt, 'button_inactive');
+      handleCardFormSubmit(evt, submitButton,'button_inactive');
     }
     if (formElement.getAttribute('name') === 'delete-card') {
       handleDeleteFormSubmit(idCardToDelete);
     }
     if (formElement.getAttribute('name') === 'edit-avatar') {
-      handleEditAvatarFormSubmit(evt, 'button_inactive');
+      handleEditAvatarFormSubmit(evt, submitButton, 'button_inactive');
     }
   });
 });
