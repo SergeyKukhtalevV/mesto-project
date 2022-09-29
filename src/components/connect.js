@@ -1,11 +1,3 @@
-export function getCards(groupId, token) {
-  return fetch(`https://nomoreparties.co/v1/${groupId}/cards`, {
-    headers: {
-      authorization: token
-    }
-  })
-}
-
 export function getUserInfo(groupId, token) {
   return fetch(`https://nomoreparties.co/v1/${groupId}/users/me`, {
     headers: {
@@ -26,6 +18,13 @@ export function setUserInfo(groupId, token, name, about) {
     })
   });
 }
+export function getCards(groupId, token) {
+  return fetch(`https://nomoreparties.co/v1/${groupId}/cards`, {
+    headers: {
+      authorization: token
+    }
+  })
+}
 export function addedCard(groupId, token, name, link) {
   return fetch(`https://nomoreparties.co/v1/${groupId}/cards`, {
     method: 'POST',
@@ -37,5 +36,14 @@ export function addedCard(groupId, token, name, link) {
       name: name,
       link: link
     })
+  });
+}
+export function deleteCardOnServer(groupId, token, cardId) {
+  return fetch(`https://nomoreparties.co/v1/${groupId}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: token,
+      'Content-Type': 'application/json'
+    }
   });
 }

@@ -50,8 +50,8 @@
 <footer class="footer">
   <p class="footer__copy">&copy; 2022 Mesto Russia</p>
 </footer>
+<!-- User info -->
 <div class="popup profile-popup">
-  <!-- User info -->
   <div class="popup__container popup__container_type_user-info">
     <button class="button button_type_сlose" type="button" aria-label="Закрыть всплывающее окно"></button>
     <form class="popup__form" action="url" name="edit-profile" novalidate>
@@ -107,6 +107,20 @@
       <img class="figure__image" src="" alt="template"/>
       <figcaption class="figure__caption"></figcaption>
     </figure>
+  </div>
+</div>
+<!-- Delete -->
+<div class="popup delete-popup">
+  <div class="popup__container popup__container_type_delete-card">
+    <button class="button button_type_сlose" type="button" aria-label="Закрыть всплывающее окно"></button>
+    <form class="popup__form" action="url" name="delete-card">
+      <fieldset class="popup__fieldset popup__delete-card">
+        <h2 class="popup__heading">Вы уверены?</h2>
+        <button class="button button_type_submit " type="submit">
+          Да
+        </button>
+      </fieldset>
+    </form>
   </div>
 </div>
 </body>

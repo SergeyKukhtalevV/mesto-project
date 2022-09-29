@@ -1,21 +1,17 @@
-import {itemTemplate, galleryList} from "./index.js";
+import {itemTemplate, galleryList, deletePopup} from "./index.js";
 import {toggleLike, loadDefaultImage} from "./utils.js";
-import {openImage} from "./modal.js";
+import {openPopup, openImage} from "./modal.js";
 
+export let idCardToDelete;
 /********************************************************************************/
 // Функция создания карточки
-export default function createCard(link, name, counter, userId, ownerId) {
-  const itemElement = getCard(link, name, counter, userId, ownerId, itemTemplate);
+export function createCard(link, name, counter, userId, ownerId, cardId) {
+  const itemElement = getCard(link, name, counter, userId, ownerId, cardId, itemTemplate);
   galleryList.prepend(itemElement);
 }
-//***************************************************************************** */
-// Обработка удаления карточки
-function deleteCard(event) {
-  const listItem = event.target.closest('.gallery__item');
-  listItem.remove();
-}
+//*******************************************************************************/
 // Функция получения свойств карточки
-function getCard(link, name, counter, userId, ownerId, itemTemplate) {
+function getCard(link, name, counter, userId, ownerId, cardId, itemTemplate) {
   link = link.trim();
   name = name.trim();
 
@@ -26,16 +22,21 @@ function getCard(link, name, counter, userId, ownerId, itemTemplate) {
   const counterLikes = itemElement.querySelector('.gallery__counter-likes');
   const deleteItem = itemElement.querySelector('.button_type_delete');
 
-  if(userId === ownerId) {
-    deleteItem.classList.add('button_visible');
-    deleteItem.addEventListener('click', deleteCard);
-  }
-
-
   imageItem.src = link;
   imageItem.alt = name;
   titleItem.textContent = name;
   counterLikes.textContent = counter;
+  itemElement.id = '';
+
+  if (userId === ownerId) {
+    deleteItem.classList.add('button_visible');
+    itemElement.id = cardId;
+    deleteItem.addEventListener('click', (evt) => {
+      console.log(evt.target.closest('.gallery__item').id);
+      idCardToDelete = evt.target.closest('.gallery__item').id;
+      openPopup(deletePopup);
+    });
+  }
 
   likeItem.addEventListener('click', toggleLike);
   imageItem.addEventListener('error', () => loadDefaultImage(imageItem));
@@ -43,4 +44,12 @@ function getCard(link, name, counter, userId, ownerId, itemTemplate) {
 
   return itemElement;
 }
+//*******************************************************************************/
+// Обработка локального удаления карточки
+export function deleteLocalCard(CardId) {
+  const listItem = document.getElementById(CardId);
+  listItem.remove();
+}
+
+
 
