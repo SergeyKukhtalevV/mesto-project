@@ -1,0 +1,17 @@
+.button {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #fff;
+  border-style: solid;
+  display: grid;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.button:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}

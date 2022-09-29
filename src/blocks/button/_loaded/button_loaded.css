@@ -1,0 +1,16 @@
+.button_loaded {
+  content: '';
+  pointer-events: none;
+}
+
+.button_loaded::before {
+  background-color: rgba(0, 0, 0, 1);
+  color: #fff;
+  content: 'Сохранено!';
+  font-size: 18px;
+  line-height: 50px;
+  min-height: 50px;
+  position: absolute;
+  width: 100%;
+  z-index: 7;
+}
