@@ -41,7 +41,7 @@
 @import url(../blocks/button/_type/button_type_сlose.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__container/_type/popup__container_type_photo.css);
-@import url(../blocks/popup/__delete-card/popup__delete-card.css);
+@import url(../blocks/popup/__fieldset/popup__fieldset.css);
 /*figure*/
 @import url(../blocks/figure/figure.css);
 @import url(../blocks/figure/__image/figure__image.css);

@@ -3,7 +3,6 @@
   position: relative;
 }
 .button_type_avatar:hover {
-  cursor: pointer;
   background-color: rgb(0, 0, 0, .8);
   background-image: url(../../../images/buttons/button_edit.svg);
   background-size: 26px 26px;

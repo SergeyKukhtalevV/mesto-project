@@ -124,6 +124,23 @@
     </form>
   </div>
 </div>
+<!-- Edit avatar -->
+<div class="popup avatar-popup">
+  <div class="popup__container popup__container_type_edit-avatar">
+    <button class="button button_type_сlose" type="button" aria-label="Закрыть всплывающее окно"></button>
+    <form class="popup__form" action="url" name="edit-avatar" novalidate>
+      <fieldset class="popup__fieldset popup__edit-avatar">
+        <h2 class="popup__heading">Обновить аватар</h2>
+        <input required name="link-card" type="url" class="popup__input-text" id="link-avatar"
+               placeholder="Ссылка на картинку"/>
+        <span class="popup__input-error link-avatar-error"></span>
+        <button class="button button_type_submit " type="submit">
+          Сохранить
+        </button>
+      </fieldset>
+    </form>
+  </div>
+</div>
 </body>
 
 </html>

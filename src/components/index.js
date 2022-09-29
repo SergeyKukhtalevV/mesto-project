@@ -8,6 +8,7 @@ import '../styles/index.css';
 const content = document.querySelector('.content');
 const editButton = content.querySelector('.button_type_edit');
 const addButton = content.querySelector('.button_type_add');
+const editAvatarButton = content.querySelector('.button_type_avatar');
 const profileName = content.querySelector('.profile__name');
 const profileAbout = content.querySelector('.profile__about');
 const profileAvatar = content.querySelector('.profile__avatar');
@@ -16,6 +17,7 @@ const profilePopup = document.querySelector('.profile-popup');
 const cardPopup = document.querySelector('.card-popup');
 const imagePopup = document.querySelector('.image-popup');
 const deletePopup = document.querySelector('.delete-popup');
+const avatarPopup = document.querySelector('.avatar-popup');
 
 const popups = document.querySelectorAll('.popup');
 const forms = document.querySelectorAll('.popup__form');
@@ -72,6 +74,10 @@ function handleProfileFormSubmit() {
     });
   closePopup(profilePopup);
 }
+///////////////////////////////////////////////////////////////
+editAvatarButton.addEventListener('click', () => {
+  openPopup(avatarPopup);
+})
 ///////////////////////////////////////////////////////////////
 // Получения массива карточек от сервера и создание разметки
 function drawCards(groupId, token) {
