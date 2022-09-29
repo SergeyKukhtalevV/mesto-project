@@ -18,6 +18,18 @@ export function setUserInfo(groupId, token, name, about) {
     })
   });
 }
+export function setUserAvatar(groupId, token, avatar) {
+  return fetch(`https://nomoreparties.co/v1/${groupId}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: {
+      authorization: token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      avatar: avatar
+    })
+  });
+}
 export function getCards(groupId, token) {
   return fetch(`https://nomoreparties.co/v1/${groupId}/cards`, {
     headers: {
