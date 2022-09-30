@@ -84,7 +84,7 @@ function getCard(link, name, counter, userId, ownerId, cardId, itemTemplate) {
   });
 
   imageItem.addEventListener('error', () => loadDefaultImage(imageItem));
-  imageItem.addEventListener('click', openImage);
+  imageItem.addEventListener('click', () => openImage(link, name));
 
   return itemElement;
 }

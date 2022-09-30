@@ -21,13 +21,9 @@ export function closePopup(popup) {
 }
 
 // Обработка нажатия на изображение
-export function openImage(event) {
-  const listItem = event.target.closest('.gallery__item');
-  const photoGallery = listItem.querySelector('.gallery__photo');
-  const titleGallery = listItem.querySelector('.gallery__title');
-
+export function openImage(imageSrc, imageName) {
   openPopup(imagePopup);
-  figureImage.src = photoGallery.src;
-  figureImage.alt = photoGallery.alt;
-  figureCaption.textContent = titleGallery.textContent;
+  figureImage.src = imageSrc;
+  figureImage.alt = imageName;
+  figureCaption.textContent = imageName;
 }
