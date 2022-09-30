@@ -1,11 +1,15 @@
 import {itemTemplate, galleryList, deletePopup} from "./index.js";
-import {toggleLike, loadDefaultImage} from "./utils.js";
+import {loadDefaultImage} from "./utils.js";
 import {openPopup, openImage} from "./modal.js";
 import {putLike, removeLike} from "./api.js";
 
 export let idCardToDelete;
 export let idCardToToggleLike;
 /********************************************************************************/
+// Изменение цвета лайка
+function toggleLike(evt) {
+  event.target.classList.toggle('button_type_like-active');
+}
 
 // Функция создания карточки
 export function createCard(link, name, counter, userId, ownerId, cardId) {
