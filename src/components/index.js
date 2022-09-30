@@ -55,7 +55,10 @@ getUserInfo()
   });
 ///////////////////////////////////////////////////////////////
 // Обработчик формы редактирования данных о пользователе
-function handleProfileFormSubmit(evt, submitButton) {
+function handleProfileFormSubmit(evt) {
+
+  const submitButton = evt.target.querySelector('.button_type_submit');
+  submitButton.classList.add('button_loading');
   profileName.textContent = profilePopupName.value;
   profileAbout.textContent = profilePopupAbout.value;
 
@@ -75,6 +78,10 @@ function handleProfileFormSubmit(evt, submitButton) {
     })
     .finally(() => {
       closePopup(profilePopup);
+      setTimeout(() => {
+        submitButton.classList.remove('button_loading');
+        submitButton.classList.remove('button_loaded');
+      }, 500);
     });
 }
 
@@ -84,7 +91,10 @@ editAvatarButton.addEventListener('click', () => {
 })
 ///////////////////////////////////////////////////////////////
 // Обработка формы изменения аватара
-function handleEditAvatarFormSubmit(evt, submitButton, inactiveButtonClass) {
+function handleEditAvatarFormSubmit(evt, inactiveButtonClass) {
+
+  const submitButton = evt.target.querySelector('.button_type_submit');
+  submitButton.classList.add('button_loading');
   setUserAvatar(avatarPopupLink.value)
     .then((res) => {
       if (res.ok) {
@@ -104,6 +114,10 @@ function handleEditAvatarFormSubmit(evt, submitButton, inactiveButtonClass) {
       closePopup(avatarPopup);
       submitButton.classList.add(inactiveButtonClass);
       submitButton.setAttribute('disabled', 'disabled');
+      setTimeout(() => {
+        submitButton.classList.remove('button_loading');
+        submitButton.classList.remove('button_loaded');
+      }, 500);
     });
 }
 
@@ -128,10 +142,12 @@ getCards()
 
 ///////////////////////////////////////////////////////////////
 // Обработка формы добавления изображения
-function handleCardFormSubmit(evt, submitButton, inactiveButtonClass) {
+function handleCardFormSubmit(evt, inactiveButtonClass) {
 
+  const submitButton = evt.target.querySelector('.button_type_submit');
   submitButton.classList.add(inactiveButtonClass);
   submitButton.setAttribute('disabled', 'disabled');
+  submitButton.classList.add('button_loading');
 
   addedCard(cardPopupName.value, cardPopupLink.value)
     .then((res) => {
@@ -153,6 +169,10 @@ function handleCardFormSubmit(evt, submitButton, inactiveButtonClass) {
       submitButton.classList.add(inactiveButtonClass);
       submitButton.setAttribute('disabled', 'disabled');
       evt.target.reset();
+      setTimeout(() => {
+        submitButton.classList.remove('button_loading');
+        submitButton.classList.remove('button_loaded');
+      }, 500);
     });
 }
 
@@ -197,20 +217,19 @@ function handleDeleteFormSubmit(CardId) {
 forms.forEach((formElement) => {
   formElement.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    const submitButton = evt.target.querySelector('.button_type_submit');
-    submitButton.classList.add('button_loading');
+
     if (formElement.getAttribute('name') === 'edit-profile') {
-      handleProfileFormSubmit(evt, submitButton);
+      handleProfileFormSubmit(evt);
     }
     if (formElement.getAttribute('name') === 'card-add') {
-      handleCardFormSubmit(evt, submitButton, 'button_inactive');
+      handleCardFormSubmit(evt, 'button_inactive');
     }
     if (formElement.getAttribute('name') === 'delete-card') {
       submitButton.classList.remove('button_loading');
       handleDeleteFormSubmit(idCardToDelete);
     }
     if (formElement.getAttribute('name') === 'edit-avatar') {
-      handleEditAvatarFormSubmit(evt, submitButton, 'button_inactive');
+      handleEditAvatarFormSubmit(evt, 'button_inactive');
     }
   });
 });
