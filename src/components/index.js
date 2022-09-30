@@ -93,7 +93,6 @@ buttonOpenPopupAvatar.addEventListener('click', () => {
 ///////////////////////////////////////////////////////////////
 // Обработка формы изменения аватара
 function handleEditAvatarFormSubmit(evt, inactiveButtonClass) {
-
   const submitButton = evt.target.querySelector('.button_type_submit');
   submitButton.classList.add('button_loading');
   setUserAvatar(avatarPopupLink.value)
@@ -107,7 +106,8 @@ function handleEditAvatarFormSubmit(evt, inactiveButtonClass) {
     })
     .finally(() => {
       closePopup(avatarPopup);
-      submitButton.classList.add(inactiveButtonClass);
+      //submitButton.classList.add(inactiveButtonClass);
+      avatarPopupLink.value = '';
       submitButton.setAttribute('disabled', 'disabled');
       setTimeout(() => {
         submitButton.classList.remove('button_loading');
@@ -118,10 +118,9 @@ function handleEditAvatarFormSubmit(evt, inactiveButtonClass) {
 
 ///////////////////////////////////////////////////////////////
 // Обработка формы добавления изображения
-function handleCardFormSubmit(evt, inactiveButtonClass) {
+function handleCardFormSubmit(evt) {
 
   const submitButton = evt.target.querySelector('.button_type_submit');
-  submitButton.classList.add(inactiveButtonClass);
   submitButton.setAttribute('disabled', 'disabled');
   submitButton.classList.add('button_loading');
 
@@ -136,7 +135,7 @@ function handleCardFormSubmit(evt, inactiveButtonClass) {
     })
     .finally(() => {
       closePopup(cardAddPopup);
-      submitButton.classList.add(inactiveButtonClass);
+      //submitButton.classList.add(inactiveButtonClass);
       submitButton.setAttribute('disabled', 'disabled');
       evt.target.reset();
       setTimeout(() => {
