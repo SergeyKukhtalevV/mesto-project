@@ -1,4 +1,4 @@
-import {imagePopup, figureImage, figureCaption} from "./config.js";
+import {imageWatchPopup, figureImage, figureCaption} from "./config.js";
 
 // закрытие модального окна по нажатию на Escape
 function closePopupByEscape(evt) {
@@ -25,5 +25,5 @@ export function openImage(imageSrc, imageName) {
   figureImage.src = imageSrc;
   figureImage.alt = imageName;
   figureCaption.textContent = imageName;
-  openPopup(imagePopup);
+  openPopup(imageWatchPopup);
 }

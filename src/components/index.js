@@ -1,22 +1,21 @@
 import {
-
   profilePopup,
   avatarPopup,
-  cardPopup,
+  cardAddPopup,
   profileAvatar,
   profileName,
   profileAbout,
   profilePopupName,
   profilePopupAbout,
-  editAvatarButton,
+  buttonOpenPopupAvatar,
   avatarPopupLink,
   cardPopupName,
   cardPopupLink,
-  addButton,
+  buttonOpenPopupNewCard,
   popups,
   forms,
-  deletePopup,
-  editButton
+  cardDeletePopup,
+  buttonOpenPopupEditProfile,
 } from "./config.js";
 
 import enableValidation from "./validate.js";
@@ -73,7 +72,7 @@ function handleProfileFormSubmit(evt) {
 }
 
 ///////////////////////////////////////////////////////////////
-editAvatarButton.addEventListener('click', () => {
+buttonOpenPopupAvatar.addEventListener('click', () => {
   openPopup(avatarPopup);
 })
 ///////////////////////////////////////////////////////////////
@@ -152,7 +151,7 @@ function handleCardFormSubmit(evt, inactiveButtonClass) {
       console.log('Ошибка, запрос не выполнен', err);
     })
     .finally(() => {
-      closePopup(cardPopup);
+      closePopup(cardAddPopup);
       submitButton.classList.add(inactiveButtonClass);
       submitButton.setAttribute('disabled', 'disabled');
       evt.target.reset();
@@ -164,13 +163,13 @@ function handleCardFormSubmit(evt, inactiveButtonClass) {
 }
 
 ////////////////////////////////////////////////////////
-editButton.addEventListener('click', () => {
+buttonOpenPopupEditProfile.addEventListener('click', () => {
   openPopup(profilePopup);
   profilePopupName.value = profileName.textContent;
   profilePopupAbout.value = profileAbout.textContent;
 });
 ///////////////////////////////////////////////////////////////
-addButton.addEventListener('click', () => openPopup(cardPopup));
+buttonOpenPopupNewCard.addEventListener('click', () => openPopup(cardAddPopup));
 //////////////////////////////////////////////////////////////////////////////
 //Обработка события click при нажатии на кнопку закрыть и закрытие модального окна по клику на оверлей
 popups.forEach((popup) => {
@@ -197,7 +196,7 @@ function handleDeleteFormSubmit(CardId) {
     .catch((err) => {
       console.log('Ошибка, запрос на удаление не выполнен', err);
     });
-  closePopup(deletePopup);
+  closePopup(cardDeletePopup);
 }
 
 //////////////////////////////////////////////////

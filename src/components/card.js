@@ -1,4 +1,4 @@
-import {itemTemplate, galleryList, deletePopup} from "./config.js";
+import {itemTemplate, galleryList, cardDeletePopup} from "./config.js";
 import {loadDefaultImage} from "./utils.js";
 import {openPopup, openImage} from "./modal.js";
 import {putLike, removeLike} from "./api.js";
@@ -41,7 +41,7 @@ function getCard(link, name, counter, userId, ownerId, cardId, itemTemplate) {
     deleteItem.classList.add('button_visible');
     deleteItem.addEventListener('click', (evt) => {
       idCardToDelete = evt.target.closest('.gallery__item').id;
-      openPopup(deletePopup);
+      openPopup(cardDeletePopup);
     });
   }
 
