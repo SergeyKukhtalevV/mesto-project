@@ -53,8 +53,6 @@ function handleProfileFormSubmit(evt) {
 
   const submitButton = evt.target.querySelector('.button_type_submit');
   submitButton.classList.add('button_loading');
-  profileName.textContent = profilePopupName.value;
-  profileAbout.textContent = profilePopupAbout.value;
 
   setUserInfo(profilePopupName.value, profilePopupAbout.value)
     .then((res) => {
@@ -65,6 +63,8 @@ function handleProfileFormSubmit(evt) {
     })
     .then((result) => {
       submitButton.classList.add('button_loaded');
+      profileName.textContent = result.name;
+      profileAbout.textContent = result.about;
       console.log('Запрос на изменение данных пользователя выполнен успешно.');
     })
     .catch((err) => {
