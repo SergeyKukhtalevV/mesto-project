@@ -32,12 +32,20 @@ let cards;
 ///////////////////////////////////////////////////////////////
 // Получение информации о пользователе с сервера
 getUserInfo()
-  .then(res => res.json())
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Что-то пошло не так: ${res.status}`);
+  })
   .then((result) => {
     profileName.textContent = result.name;
     profileAbout.textContent = result.about;
     profileAvatar.src = result.avatar;
     userId = result["_id"];
+  })
+  .catch((err) => {
+    console.log('Ошибка, запрос не выполнен', err);
   });
 ///////////////////////////////////////////////////////////////
 // Обработчик формы редактирования данных о пользователе
