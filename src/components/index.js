@@ -31,7 +31,7 @@ let cards;
 
 ///////////////////////////////////////////////////////////////
 // Получение информации о пользователе с сервера
-getUserInfo()
+const promiseUserInfo = getUserInfo()
   .then((result) => {
     profileName.textContent = result.name;
     profileAbout.textContent = result.about;
@@ -40,6 +40,25 @@ getUserInfo()
   })
   .catch((err) => {
     console.log('Ошибка, запрос не выполнен', err);
+  });
+///////////////////////////////////////////////////////////////
+// Получения массива карточек от сервера и создание разметки
+const promiseGetCards = getCards()
+  .then((result) => {
+    cards = Array.from(result);
+    cards.forEach((card) => {
+      createCard(card.link, card.name, card.likes.length, userId, card.owner["_id"], card["_id"]);
+    });
+  })
+  .catch((err) => {
+    console.log('Ошибка, запрос не выполнен', err);
+  });
+Promise.all([promiseUserInfo, promiseGetCards])
+  .then(values => {
+    console.log("Получены данные пользователя и список карточек");
+  })
+  .catch(() => {
+    console.log('Ошибка, запрос на получение данных пользователя и список карточек не выполнен');
   });
 ///////////////////////////////////////////////////////////////
 // Обработчик формы редактирования данных о пользователе
@@ -96,19 +115,6 @@ function handleEditAvatarFormSubmit(evt, inactiveButtonClass) {
       }, 500);
     });
 }
-
-///////////////////////////////////////////////////////////////
-// Получения массива карточек от сервера и создание разметки
-getCards()
-  .then((result) => {
-    cards = Array.from(result);
-    cards.forEach((card) => {
-      createCard(card.link, card.name, card.likes.length, userId, card.owner["_id"], card["_id"]);
-    });
-  })
-  .catch((err) => {
-    console.log('Ошибка, запрос не выполнен', err);
-  });
 
 ///////////////////////////////////////////////////////////////
 // Обработка формы добавления изображения
