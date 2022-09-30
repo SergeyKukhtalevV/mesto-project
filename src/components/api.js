@@ -12,6 +12,12 @@ export function getUserInfo() {
       authorization: config.headers.authorization
     }
   })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    })
 }
 
 export function setUserInfo(name, about) {
@@ -25,7 +31,13 @@ export function setUserInfo(name, about) {
       name: name,
       about: about
     })
-  });
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    })
 }
 
 export function setUserAvatar(avatar) {
@@ -38,7 +50,13 @@ export function setUserAvatar(avatar) {
     body: JSON.stringify({
       avatar: avatar
     })
-  });
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    })
 }
 
 export function getCards() {
@@ -47,6 +65,12 @@ export function getCards() {
       authorization: config.headers.authorization
     }
   })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    })
 }
 
 export function addedCard(name, link) {
@@ -60,7 +84,13 @@ export function addedCard(name, link) {
       name: name,
       link: link
     })
-  });
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    })
 }
 
 export function deleteCardOnServer(cardId) {
@@ -70,7 +100,13 @@ export function deleteCardOnServer(cardId) {
       authorization: config.headers.authorization,
       'Content-Type': config.headers["Content-Type"]
     }
-  });
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    })
 }
 
 export function putLike(cardId) {
@@ -80,6 +116,12 @@ export function putLike(cardId) {
       authorization: config.headers.authorization
     }
   })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    })
 }
 
 export function removeLike(cardId) {
@@ -89,4 +131,10 @@ export function removeLike(cardId) {
       authorization: config.headers.authorization
     }
   })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    })
 }

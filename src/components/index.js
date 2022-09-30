@@ -32,12 +32,6 @@ let cards;
 ///////////////////////////////////////////////////////////////
 // Получение информации о пользователе с сервера
 getUserInfo()
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Что-то пошло не так: ${res.status}`);
-  })
   .then((result) => {
     profileName.textContent = result.name;
     profileAbout.textContent = result.about;
@@ -55,12 +49,6 @@ function handleProfileFormSubmit(evt) {
   submitButton.classList.add('button_loading');
 
   setUserInfo(profilePopupName.value, profilePopupAbout.value)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Что-то пошло не так: ${res.status}`);
-    })
     .then((result) => {
       submitButton.classList.add('button_loaded');
       profileName.textContent = result.name;
@@ -90,12 +78,6 @@ function handleEditAvatarFormSubmit(evt, inactiveButtonClass) {
   const submitButton = evt.target.querySelector('.button_type_submit');
   submitButton.classList.add('button_loading');
   setUserAvatar(avatarPopupLink.value)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Что-то пошло не так: ${res.status}`);
-    })
     .then((result) => {
       submitButton.classList.add('button_loaded');
       console.log('Запрос на изменение аватара пользователя выполнен успешно.', result);
@@ -118,12 +100,6 @@ function handleEditAvatarFormSubmit(evt, inactiveButtonClass) {
 ///////////////////////////////////////////////////////////////
 // Получения массива карточек от сервера и создание разметки
 getCards()
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Что-то пошло не так: ${res.status}`);
-  })
   .then((result) => {
     cards = Array.from(result);
     cards.forEach((card) => {
@@ -144,12 +120,6 @@ function handleCardFormSubmit(evt, inactiveButtonClass) {
   submitButton.classList.add('button_loading');
 
   addedCard(cardPopupName.value, cardPopupLink.value)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Что-то пошло не так: ${res.status}`);
-    })
     .then((result) => {
       submitButton.classList.add('button_loaded');
       console.log("Сервер прислал созданный объект карточка", result);
@@ -191,12 +161,6 @@ popups.forEach((popup) => {
 //////////////////////////////////////////////
 function handleDeleteFormSubmit(CardId) {
   deleteCardOnServer(CardId)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Что-то пошло не так: ${res.status}`);
-    })
     .then((result) => {
       console.log("Удалено с результатом ", result);
       deleteLocalCard(CardId);

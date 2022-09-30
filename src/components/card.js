@@ -6,6 +6,7 @@ import {putLike, removeLike} from "./api.js";
 export let idCardToDelete;
 export let idCardToToggleLike;
 /********************************************************************************/
+
 // Изменение цвета лайка
 function toggleLike(evt) {
   event.target.classList.toggle('button_type_like-active');
@@ -50,12 +51,6 @@ function getCard(link, name, counter, userId, ownerId, cardId, itemTemplate) {
     toggleLike(evt);
     if (!flagLike) {
       putLike(idCardToToggleLike)
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-          return Promise.reject(`Что-то пошло не так с постановкой лайка: ${res.status}`);
-        })
         .then((result) => {
           console.log("Сервер прислал карточку с увеличенным счетчиком лайков", result);
           flagLike = true;
@@ -66,12 +61,6 @@ function getCard(link, name, counter, userId, ownerId, cardId, itemTemplate) {
         });
     } else {
       removeLike(idCardToToggleLike)
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-          return Promise.reject(`Что-то пошло не так с удалением лайка: ${res.status}`);
-        })
         .then((result) => {
           console.log("Сервер прислал карточку с уменьшенным счетчиком лайков", result);
           flagLike = false;
