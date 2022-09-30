@@ -1,3 +1,24 @@
+import {
+
+  profilePopup,
+  avatarPopup,
+  cardPopup,
+  profileAvatar,
+  profileName,
+  profileAbout,
+  profilePopupName,
+  profilePopupAbout,
+  editAvatarButton,
+  avatarPopupLink,
+  cardPopupName,
+  cardPopupLink,
+  addButton,
+  popups,
+  forms,
+  deletePopup,
+  editButton
+} from "./config.js";
+
 import enableValidation from "./validate.js";
 import {createCard, deleteLocalCard, idCardToDelete} from "./card.js";
 import {openPopup, closePopup} from "./modal.js";
@@ -6,43 +27,9 @@ import {
 } from "./api.js";
 import '../styles/index.css';
 
-//Объявляем переменные и константы
-const content = document.querySelector('.content');
-const editButton = content.querySelector('.button_type_edit');
-const addButton = content.querySelector('.button_type_add');
-const editAvatarButton = content.querySelector('.button_type_avatar');
-const profileName = content.querySelector('.profile__name');
-const profileAbout = content.querySelector('.profile__about');
-const profileAvatar = content.querySelector('.profile__avatar');
-
-const profilePopup = document.querySelector('.profile-popup');
-const cardPopup = document.querySelector('.card-popup');
-const imagePopup = document.querySelector('.image-popup');
-const deletePopup = document.querySelector('.delete-popup');
-const avatarPopup = document.querySelector('.avatar-popup');
-
-const popups = document.querySelectorAll('.popup');
-const forms = document.querySelectorAll('.popup__form');
-
-const profilePopupName = profilePopup.querySelector('#name');
-const profilePopupAbout = profilePopup.querySelector('#about-yourself');
-
-const cardPopupName = cardPopup.querySelector('#name-card');
-const cardPopupLink = cardPopup.querySelector('#link-card');
-
-const avatarPopupLink = avatarPopup.querySelector('#link-avatar');
-
-const itemTemplate = document.querySelector('#item-template').content;
-
-const figureImage = imagePopup.querySelector('.figure__image');
-const figureCaption = imagePopup.querySelector('.figure__caption');
-
 let userId;
 let cards;
 
-const galleryList = content.querySelector('.gallery__list');
-
-export {itemTemplate, galleryList, imagePopup, figureImage, figureCaption, deletePopup};
 ///////////////////////////////////////////////////////////////
 // Получение информации о пользователе с сервера
 getUserInfo()
@@ -225,7 +212,6 @@ forms.forEach((formElement) => {
       handleCardFormSubmit(evt, 'button_inactive');
     }
     if (formElement.getAttribute('name') === 'delete-card') {
-      submitButton.classList.remove('button_loading');
       handleDeleteFormSubmit(idCardToDelete);
     }
     if (formElement.getAttribute('name') === 'edit-avatar') {

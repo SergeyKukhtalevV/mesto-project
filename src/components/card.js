@@ -1,4 +1,4 @@
-import {itemTemplate, galleryList, deletePopup} from "./index.js";
+import {itemTemplate, galleryList, deletePopup} from "./config.js";
 import {loadDefaultImage} from "./utils.js";
 import {openPopup, openImage} from "./modal.js";
 import {putLike, removeLike} from "./api.js";
