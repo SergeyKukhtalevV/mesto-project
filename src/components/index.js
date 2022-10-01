@@ -1,4 +1,5 @@
 import {
+  content,
   profilePopup,
   avatarPopup,
   cardAddPopup,
@@ -19,16 +20,17 @@ import {
 } from "./config.js";
 
 import {enableValidation, turnOffSubmitButton} from "./validate.js";
-import {createCard, deleteLocalCard, idCardToDelete} from "./card.js";
+import {createCard, deleteLocalCard, toggleLike, idCardToDelete} from "./card.js";
 import {openPopup, closePopup} from "./modal.js";
 import {
-  getCards, getUserInfo, setUserInfo, addedCard, deleteCardOnServer, setUserAvatar
+  getCards, getUserInfo, setUserInfo, addedCard, deleteCardOnServer, setUserAvatar, putLike, removeLike
 } from "./api.js";
 import '../styles/index.css';
 
 let userId;
 let cards;
-
+let arrayLikes;
+let idCardToToggleLike;
 ///////////////////////////////////////////////////////////////
 // Получение информации о пользователе с сервера
 const promiseUserInfo = getUserInfo()
@@ -55,6 +57,38 @@ const promiseGetCards = getCards()
   });
 Promise.all([promiseUserInfo, promiseGetCards])
   .then(values => {
+    arrayLikes = content.querySelectorAll('.button_type_like');
+    arrayLikes.forEach((likeItem) => {
+      let flagLike = false;
+      likeItem.addEventListener('click', (evt) => {
+        const cardGallery = evt.target.closest('.gallery__item')
+        console.log(cardGallery.querySelector('.gallery__counter-likes'));
+        idCardToToggleLike = cardGallery.id;
+        const counterLikes = cardGallery.querySelector('.gallery__counter-likes');
+        toggleLike(likeItem);
+        if (!flagLike) {
+          putLike(idCardToToggleLike)
+            .then((result) => {
+              console.log("Сервер прислал карточку с увеличенным счетчиком лайков", result);
+              flagLike = true;
+              counterLikes.textContent = result.likes.length;
+            })
+            .catch((err) => {
+              console.log('Ошибка, запрос на увеличение количества лайков не выполнен', err);
+            });
+        } else {
+          removeLike(idCardToToggleLike)
+            .then((result) => {
+              console.log("Сервер прислал карточку с уменьшенным счетчиком лайков", result);
+              flagLike = false;
+              counterLikes.textContent = result.likes.length;
+            })
+            .catch((err) => {
+              console.log('Ошибка, запрос на уменьшение количества лайков не выполнен', err);
+            });
+        }
+      });
+    })
     console.log("Получены данные пользователя и список карточек");
   })
   .catch(() => {
@@ -92,7 +126,7 @@ buttonOpenPopupAvatar.addEventListener('click', () => {
 })
 ///////////////////////////////////////////////////////////////
 // Обработка формы изменения аватара
-function handleEditAvatarFormSubmit(evt, inactiveButtonClass) {
+function handleEditAvatarFormSubmit(evt) {
   const submitButton = evt.target.querySelector('.button_type_submit');
   submitButton.classList.add('button_loading');
   setUserAvatar(avatarPopupLink.value)
@@ -107,8 +141,6 @@ function handleEditAvatarFormSubmit(evt, inactiveButtonClass) {
     .finally(() => {
       closePopup(avatarPopup);
       turnOffSubmitButton(submitButton);
-      //submitButton.classList.add(inactiveButtonClass);
-      //submitButton.setAttribute('disabled', 'disabled');
       avatarPopupLink.value = '';
       setTimeout(() => {
         submitButton.classList.remove('button_loading');
@@ -137,8 +169,6 @@ function handleCardFormSubmit(evt) {
     .finally(() => {
       closePopup(cardAddPopup);
       turnOffSubmitButton(submitButton);
-      //submitButton.classList.add(inactiveButtonClass);
-      //submitButton.setAttribute('disabled', 'disabled');
       evt.target.reset();
       setTimeout(() => {
         submitButton.classList.remove('button_loading');
@@ -187,13 +217,13 @@ forms.forEach((formElement) => {
       handleProfileFormSubmit(evt);
     }
     if (formElement.getAttribute('name') === 'card-add') {
-      handleCardFormSubmit(evt, 'button_inactive');
+      handleCardFormSubmit(evt);
     }
     if (formElement.getAttribute('name') === 'delete-card') {
       handleDeleteFormSubmit(idCardToDelete);
     }
     if (formElement.getAttribute('name') === 'edit-avatar') {
-      handleEditAvatarFormSubmit(evt, 'button_inactive');
+      handleEditAvatarFormSubmit(evt);
     }
   });
 });
