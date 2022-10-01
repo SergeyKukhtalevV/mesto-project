@@ -30,6 +30,7 @@
 .button_loading{content:"";pointer-events:none}.button_loading:before{background-color:#000;color:#fff;content:"Сохранение...";font-size:18px;line-height:50px;min-height:50px;position:absolute;width:100%;z-index:5}
 .button_loaded{content:"";pointer-events:none}.button_loaded:before{background-color:#000;color:#fff;content:"Сохранено!";font-size:18px;line-height:50px;min-height:50px;position:absolute;width:100%;z-index:7}
 .popup{align-items:center;background-color:rgba(0,0,0,.5);display:grid;height:100%;justify-content:center;left:0;opacity:0;overflow:auto;position:fixed;top:0;transition:visibility 0s linear .5s,opacity .5s linear;visibility:hidden;width:100%}
+.popup_type_image{background-color:rgba(0,0,0,.9)}
 .popup__container{background:#fff;border-radius:10px;box-shadow:0 0 25px rgba(0,0,0,.15);height:-webkit-min-content;height:-moz-min-content;height:min-content;position:relative;width:100%}
 .popup__form{margin:0;padding:0;width:430px}@media screen and (max-width:767px){.popup__form{width:282px}}
 .popup__heading{color:#000;font-size:24px;font-weight:900;line-height:29px;margin:0 0 51px;padding:0}@media screen and (max-width:767px){.popup__heading{font-size:18px;line-height:22px;margin-bottom:75px}}
