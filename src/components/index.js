@@ -1,5 +1,4 @@
 import {
-  content,
   profilePopup,
   avatarPopup,
   cardAddPopup,
@@ -29,7 +28,6 @@ import '../styles/index.css';
 
 let userId;
 let cards;
-let arrayLikes;
 let idCardToToggleLike;
 ///////////////////////////////////////////////////////////////
 // Получение информации о пользователе с сервера
@@ -49,23 +47,13 @@ const promiseGetCards = getCards()
   .then((result) => {
     cards = Array.from(result);
     cards.forEach((card) => {
-      createCard(card.link, card.name, card.likes.length, userId, card.owner["_id"], card["_id"]);
-    });
-  })
-  .catch((err) => {
-    console.log('Ошибка, запрос не выполнен', err);
-  });
-Promise.all([promiseUserInfo, promiseGetCards])
-  .then(values => {
-    arrayLikes = content.querySelectorAll('.button_type_like');
-    arrayLikes.forEach((likeItem) => {
       let flagLike = false;
-      likeItem.addEventListener('click', (evt) => {
-        const cardGallery = evt.target.closest('.gallery__item')
-        console.log(cardGallery.querySelector('.gallery__counter-likes'));
-        idCardToToggleLike = cardGallery.id;
+      createCard(card.link, card.name, card.likes.length, userId, card.owner["_id"], card["_id"], () => {
+        const likeItem = event.target;
+        const cardGallery = likeItem.closest('.gallery__item');
         const counterLikes = cardGallery.querySelector('.gallery__counter-likes');
         toggleLike(likeItem);
+        idCardToToggleLike = cardGallery.id;
         if (!flagLike) {
           putLike(idCardToToggleLike)
             .then((result) => {
@@ -88,7 +76,13 @@ Promise.all([promiseUserInfo, promiseGetCards])
             });
         }
       });
-    })
+    });
+  })
+  .catch((err) => {
+    console.log('Ошибка, запрос не выполнен', err);
+  });
+Promise.all([promiseUserInfo, promiseGetCards])
+  .then(values => {
     console.log("Получены данные пользователя и список карточек");
   })
   .catch(() => {
@@ -161,7 +155,35 @@ function handleCardFormSubmit(evt) {
     .then((result) => {
       submitButton.classList.add('button_loaded');
       console.log("Сервер прислал созданный объект карточка", result);
-      createCard(result.link, result.name, result.likes.length, userId, result.owner["_id"], result["_id"]);
+      let flagLike = false;
+      createCard(result.link, result.name, result.likes.length, userId, result.owner["_id"], result["_id"], () => {
+        const likeItem = event.target;
+        const cardGallery = likeItem.closest('.gallery__item');
+        const counterLikes = cardGallery.querySelector('.gallery__counter-likes');
+        toggleLike(likeItem);
+        idCardToToggleLike = cardGallery.id;
+        if (!flagLike) {
+          putLike(idCardToToggleLike)
+            .then((result) => {
+              console.log("Сервер прислал карточку с увеличенным счетчиком лайков", result);
+              flagLike = true;
+              counterLikes.textContent = result.likes.length;
+            })
+            .catch((err) => {
+              console.log('Ошибка, запрос на увеличение количества лайков не выполнен', err);
+            });
+        } else {
+          removeLike(idCardToToggleLike)
+            .then((result) => {
+              console.log("Сервер прислал карточку с уменьшенным счетчиком лайков", result);
+              flagLike = false;
+              counterLikes.textContent = result.likes.length;
+            })
+            .catch((err) => {
+              console.log('Ошибка, запрос на уменьшение количества лайков не выполнен', err);
+            });
+        }
+      });
     })
     .catch((err) => {
       console.log('Ошибка, запрос не выполнен', err);
