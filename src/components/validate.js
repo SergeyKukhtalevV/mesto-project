@@ -1,5 +1,5 @@
 // Функция для обработки валидации всех форм
-export default function enableValidation({
+export function enableValidation({
                                            formSelector, fieldsetSelector, inputSelector,
                                            submitButtonSelector, inactiveButtonClass, inputErrorClass,
                                            errorClass
@@ -75,8 +75,15 @@ export default function enableValidation({
   formList.forEach((formElement) => {
     const fieldsetList = Array.from(formElement.querySelectorAll(fieldsetSelector));
     fieldsetList.forEach((fieldsetElement) => {
+      // const inputList = Array.from(fieldsetElement.querySelectorAll(inputSelector));
+      // const buttonElement = fieldsetElement.querySelector(submitButtonSelector);
+      // toggleButtonState(inputList, buttonElement, inactiveButtonClass);
       setEventListeners(fieldsetElement, inputSelector, submitButtonSelector, inactiveButtonClass,
         inputErrorClass, errorClass);
     });
   });
+}
+export function turnOffSubmitButton(submitButtonSelector) {
+  submitButtonSelector.classList.add('button_inactive');
+  submitButtonSelector.setAttribute('disabled', 'disabled');
 }

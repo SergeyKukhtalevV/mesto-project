@@ -18,7 +18,7 @@ import {
   buttonOpenPopupEditProfile,
 } from "./config.js";
 
-import enableValidation from "./validate.js";
+import {enableValidation, turnOffSubmitButton} from "./validate.js";
 import {createCard, deleteLocalCard, idCardToDelete} from "./card.js";
 import {openPopup, closePopup} from "./modal.js";
 import {
@@ -106,9 +106,10 @@ function handleEditAvatarFormSubmit(evt, inactiveButtonClass) {
     })
     .finally(() => {
       closePopup(avatarPopup);
+      turnOffSubmitButton(submitButton);
       //submitButton.classList.add(inactiveButtonClass);
+      //submitButton.setAttribute('disabled', 'disabled');
       avatarPopupLink.value = '';
-      submitButton.setAttribute('disabled', 'disabled');
       setTimeout(() => {
         submitButton.classList.remove('button_loading');
         submitButton.classList.remove('button_loaded');
@@ -135,8 +136,9 @@ function handleCardFormSubmit(evt) {
     })
     .finally(() => {
       closePopup(cardAddPopup);
+      turnOffSubmitButton(submitButton);
       //submitButton.classList.add(inactiveButtonClass);
-      submitButton.setAttribute('disabled', 'disabled');
+      //submitButton.setAttribute('disabled', 'disabled');
       evt.target.reset();
       setTimeout(() => {
         submitButton.classList.remove('button_loading');
