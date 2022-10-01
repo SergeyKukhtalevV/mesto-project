@@ -101,12 +101,12 @@ function handleProfileFormSubmit(evt) {
       profileName.textContent = result.name;
       profileAbout.textContent = result.about;
       console.log('Запрос на изменение данных пользователя выполнен успешно.');
+      closePopup(profilePopup);
     })
     .catch((err) => {
       console.log('Ошибка, запрос не выполнен', err);
     })
     .finally(() => {
-      closePopup(profilePopup);
       setTimeout(() => {
         submitButton.classList.remove('button_loading');
         submitButton.classList.remove('button_loaded');
@@ -128,14 +128,14 @@ function handleEditAvatarFormSubmit(evt) {
       submitButton.classList.add('button_loaded');
       console.log('Запрос на изменение аватара пользователя выполнен успешно.', result);
       profileAvatar.src = result.avatar;
+      closePopup(avatarPopup);
+      avatarPopupLink.value = '';
     })
     .catch((err) => {
       console.log('Ошибка, запрос не выполнен', err);
     })
     .finally(() => {
-      closePopup(avatarPopup);
       turnOffSubmitButton(submitButton);
-      avatarPopupLink.value = '';
       setTimeout(() => {
         submitButton.classList.remove('button_loading');
         submitButton.classList.remove('button_loaded');
@@ -160,11 +160,11 @@ function handleCardFormSubmit(evt) {
         const likeItem = event.target;
         const cardGallery = likeItem.closest('.gallery__item');
         const counterLikes = cardGallery.querySelector('.gallery__counter-likes');
-        toggleLike(likeItem);
         idCardToToggleLike = cardGallery.id;
         if (!flagLike) {
           putLike(idCardToToggleLike)
             .then((result) => {
+              toggleLike(likeItem);
               console.log("Сервер прислал карточку с увеличенным счетчиком лайков", result);
               flagLike = true;
               counterLikes.textContent = result.likes.length;
@@ -175,6 +175,7 @@ function handleCardFormSubmit(evt) {
         } else {
           removeLike(idCardToToggleLike)
             .then((result) => {
+              toggleLike(likeItem);
               console.log("Сервер прислал карточку с уменьшенным счетчиком лайков", result);
               flagLike = false;
               counterLikes.textContent = result.likes.length;
@@ -184,12 +185,12 @@ function handleCardFormSubmit(evt) {
             });
         }
       });
+      closePopup(cardAddPopup);
     })
     .catch((err) => {
       console.log('Ошибка, запрос не выполнен', err);
     })
     .finally(() => {
-      closePopup(cardAddPopup);
       turnOffSubmitButton(submitButton);
       evt.target.reset();
       setTimeout(() => {
@@ -223,11 +224,11 @@ function handleDeleteFormSubmit(CardId) {
     .then((result) => {
       console.log("Удалено с результатом ", result);
       deleteLocalCard(CardId);
+      closePopup(cardDeletePopup);
     })
     .catch((err) => {
       console.log('Ошибка, запрос на удаление не выполнен', err);
     });
-  closePopup(cardDeletePopup);
 }
 
 //////////////////////////////////////////////////
