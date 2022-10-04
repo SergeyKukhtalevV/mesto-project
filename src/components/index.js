@@ -30,46 +30,41 @@ let userId;
 let cards;
 let idCardToToggleLike;
 ///////////////////////////////////////////////////////////////
-// Получение информации о пользователе с сервера
-const promiseUserInfo = getUserInfo()
-  .then((result) => {
-    profileName.textContent = result.name;
-    profileAbout.textContent = result.about;
-    profileAvatar.src = result.avatar;
-    userId = result["_id"];
-  })
-  .catch((err) => {
-    console.log('Ошибка, запрос не выполнен', err);
-  });
-///////////////////////////////////////////////////////////////
-// Получения массива карточек от сервера и создание разметки
-const promiseGetCards = getCards()
-  .then((result) => {
-    cards = Array.from(result);
+// Получение информации о пользователе и массива карточек от сервера и создание разметки
+Promise.all([getUserInfo(), getCards()])
+  .then((results) => {
+    profileName.textContent = results[0].name;
+    profileAbout.textContent = results[0].about;
+    profileAvatar.src = results[0].avatar;
+    userId = results[0]["_id"];
+    console.log("Получены данные пользователя и список карточек", results);
+    //***********************************************************************
+    cards = Array.from(results[1]);
     cards.forEach((card) => {
       let flagLike = false;
       createCard(card.link, card.name, card.likes.length, userId, card.owner["_id"], card["_id"], () => {
         const likeItem = event.target;
         const cardGallery = likeItem.closest('.gallery__item');
         const counterLikes = cardGallery.querySelector('.gallery__counter-likes');
-        toggleLike(likeItem);
         idCardToToggleLike = cardGallery.id;
         if (!flagLike) {
           putLike(idCardToToggleLike)
-            .then((result) => {
-              console.log("Сервер прислал карточку с увеличенным счетчиком лайков", result);
+            .then((res) => {
+              console.log("Сервер прислал карточку с увеличенным счетчиком лайков", res);
+              toggleLike(likeItem);
               flagLike = true;
-              counterLikes.textContent = result.likes.length;
+              counterLikes.textContent = res.likes.length;
             })
             .catch((err) => {
               console.log('Ошибка, запрос на увеличение количества лайков не выполнен', err);
             });
         } else {
           removeLike(idCardToToggleLike)
-            .then((result) => {
-              console.log("Сервер прислал карточку с уменьшенным счетчиком лайков", result);
+            .then((res) => {
+              console.log("Сервер прислал карточку с уменьшенным счетчиком лайков", res);
+              toggleLike(likeItem);
               flagLike = false;
-              counterLikes.textContent = result.likes.length;
+              counterLikes.textContent = res.likes.length;
             })
             .catch((err) => {
               console.log('Ошибка, запрос на уменьшение количества лайков не выполнен', err);
@@ -79,14 +74,7 @@ const promiseGetCards = getCards()
     });
   })
   .catch((err) => {
-    console.log('Ошибка, запрос не выполнен', err);
-  });
-Promise.all([promiseUserInfo, promiseGetCards])
-  .then(values => {
-    console.log("Получены данные пользователя и список карточек");
-  })
-  .catch(() => {
-    console.log('Ошибка, запрос на получение данных пользователя и список карточек не выполнен');
+    console.log('Ошибка, запрос на получение данных пользователя и список карточек не выполнен', err);
   });
 ///////////////////////////////////////////////////////////////
 // Обработчик формы редактирования данных о пользователе
