@@ -1,15 +1,43 @@
 import {itemTemplate, galleryList, cardDeletePopup, content} from "./config.js";
 import {loadDefaultImage} from "./utils.js";
 import {openPopup, openImage} from "./modal.js";
+import {putLike, removeLike} from "./api";
 
 export let idCardToDelete;
 /********************************************************************************/
 
 // Изменение цвета лайка
-export function toggleLike(like) {
+function toggleLike(like) {
   like.classList.toggle('button_type_like-active');
 }
-
+export function handleLikeCard(evt, flagLike, idCardToToggleLike) {
+  const likeItem = evt.target;
+  const cardGallery = likeItem.closest('.gallery__item');
+  const counterLikes = cardGallery.querySelector('.gallery__counter-likes');
+  idCardToToggleLike = cardGallery.id;
+  if (!flagLike) {
+    putLike(idCardToToggleLike)
+      .then((result) => {
+        toggleLike(likeItem);
+        console.log("Сервер прислал карточку с увеличенным счетчиком лайков", result);
+        counterLikes.textContent = result.likes.length;
+      })
+      .catch((err) => {
+        console.log('Ошибка, запрос на увеличение количества лайков не выполнен', err);
+      });
+  } else {
+    removeLike(idCardToToggleLike)
+      .then((result) => {
+        toggleLike(likeItem);
+        console.log("Сервер прислал карточку с уменьшенным счетчиком лайков", result);
+        counterLikes.textContent = result.likes.length;
+      })
+      .catch((err) => {
+        console.log('Ошибка, запрос на уменьшение количества лайков не выполнен', err);
+      });
+  }
+  return !flagLike;
+}
 // Функция создания карточки
 export function createCard(link, name, counter, userId, ownerId, cardId, handleLike) {
   const itemElement = getCard(link, name, counter, userId, ownerId, cardId, itemTemplate);
